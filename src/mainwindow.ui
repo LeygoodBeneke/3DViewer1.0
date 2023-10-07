@@ -17,7 +17,137 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QPushButton {
+  background-color: rgb(32, 32, 32)
+}
+QPushButton:hover {
+  background-color: rgb(11, 149, 255);
+}
+* {
+	background-color: rgb(25, 25, 25);
+	border-style: none;
+    transition: 11s;
+    font-size: 16px;
+}
+
+QScrollBar:vertical
+    {
+        background-color: rgb(32, 32, 32);
+        width: 15px;
+        border-radius: 0px;
+    }
+  QScrollBar::handle:vertical
+    {
+        background-color: rgb(44, 44, 44);         /* #605F5F; */
+        min-height: 5px;
+        border-radius: 0px;
+    }
+
+    QScrollBar::sub-line:vertical
+    {
+        margin: 3px 0px 3px 0px;
+        border-image: url(:/qss_icons/rc/up_arrow_disabled.png);
+        height: 10px;
+        width: 10px;
+        subcontrol-position: top;
+        subcontrol-origin: margin;
+    }
+
+    QScrollBar::add-line:vertical
+    {
+        margin: 3px 0px 3px 0px;
+        border-image: url(:/qss_icons/rc/down_arrow_disabled.png);
+        height: 10px;
+        width: 10px;
+        subcontrol-position: bottom;
+        subcontrol-origin: margin;
+    }
+
+    QScrollBar::sub-line:vertical:hover,QScrollBar::sub-line:vertical:on
+    {
+        border-image: url(:/qss_icons/rc/up_arrow.png);
+        height: 10px;
+        width: 10px;
+        subcontrol-position: top;
+        subcontrol-origin: margin;
+    }
+QDoubleSpinBox {
+	backgroud-color: rgb(255, 255, 255);
+}
+
+QSlider::groove:horizontal {
+    background: rgb(32, 32, 32);
+    height: 18px;
+    margin: 0px 0;
+}
+
+QSlider::handle:horizontal {
+    background: rgb(44, 44, 44);
+    width: 10px;
+    border-radius:  0px;
+}
+
+QComboBox {
+    min-width: 6em;
+	border-radius:  0px;
+}
+
+QComboBox:editable {
+    background: rgb(32, 32, 32);
+}
+
+QComboBox:!editable, QComboBox::drop-down:editable {
+      background: rgb(32, 32, 32);
+}
+
+/* QComboBox gets the &quot;on&quot; state when the popup is open */
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+    background: rgb(32, 32, 32);
+}
+
+QComboBox:on { /* shift the text when the popup opens */
+    padding-top: 3px;
+    padding-left: 4px;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top left;
+    background: rgb(32, 32, 32);
+}
+
+QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+    top: 3px;
+    left: 4px;
+}
+QComboBox QAbstractItemView {
+    border: 0px;
+    selection-background-color: rgb(40, 40, 40);
+}
+
+QDoubleSpinBox {
+    background: rgb(32, 32, 32);
+}
+QDoubleSpinBox::up-button {
+    background-color: rgb(40, 40, 40);
+    border: 10px;
+}
+
+QDoubleSpinBox::down-button {
+    background-color: rgb(50, 50, 50);
+    border: 2px;
+}
+QDoubleSpinBox::up-arrow {
+    image: url(:/images/down_arrow.png);
+border: 2px;
+}
+QDoubleSpinBox::down-button:hover {
+  background-color: rgb(11, 149, 255);
+}
+QDoubleSpinBox::up-button:hover {
+  background-color: rgb(11, 149, 255);
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -40,6 +170,12 @@
         <property name="autoFillBackground">
          <bool>true</bool>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QScrollArea {
+  backgrund-color: rgb(44, 44, 44);
+  color: rgb(44, 44, 44)
+}</string>
+        </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
@@ -47,19 +183,28 @@
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>-87</y>
-           <width>277</width>
-           <height>925</height>
+           <y>0</y>
+           <width>285</width>
+           <height>933</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
            <widget class="QPushButton" name="load_from_file_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
               <height>25</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
             </property>
             <property name="text">
              <string>Load from file</string>
@@ -70,6 +215,8 @@
            <widget class="QLabel" name="label_99">
             <property name="font">
              <font>
+              <family>Monospace</family>
+              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -166,8 +313,14 @@
            <widget class="QLabel" name="label_97">
             <property name="font">
              <font>
+              <family>Monospace</family>
+              <pointsize>-1</pointsize>
+              <italic>false</italic>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
             </property>
             <property name="text">
              <string>Model Position</string>
@@ -265,6 +418,8 @@
            <widget class="QLabel" name="label_92">
             <property name="font">
              <font>
+              <family>Monospace</family>
+              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -278,7 +433,7 @@
             <property name="minimumSize">
              <size>
               <width>200</width>
-              <height>0</height>
+              <height>25</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -299,6 +454,9 @@
             <property name="value">
              <number>100</number>
             </property>
+            <property name="tracking">
+             <bool>true</bool>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -308,6 +466,8 @@
            <widget class="QLabel" name="label_93">
             <property name="font">
              <font>
+              <family>Monospace</family>
+              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -318,6 +478,12 @@
           </item>
           <item>
            <widget class="QComboBox" name="projection_type_combobox">
+            <property name="minimumSize">
+             <size>
+              <width>132</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -340,6 +506,8 @@
            <widget class="QLabel" name="label_83">
             <property name="font">
              <font>
+              <family>Monospace</family>
+              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -350,6 +518,12 @@
           </item>
           <item>
            <widget class="QComboBox" name="vertices_display_method_combobox">
+            <property name="minimumSize">
+             <size>
+              <width>132</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -377,6 +551,8 @@
            <widget class="QLabel" name="label_100">
             <property name="font">
              <font>
+              <family>Monospace</family>
+              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -399,7 +575,7 @@
               <property name="minimumSize">
                <size>
                 <width>150</width>
-                <height>0</height>
+                <height>25</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -423,6 +599,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="vertices_color_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -438,6 +620,8 @@
            <widget class="QLabel" name="label_96">
             <property name="font">
              <font>
+              <family>Monospace</family>
+              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -459,7 +643,7 @@
              <widget class="QComboBox" name="edges_type_combobox">
               <property name="minimumSize">
                <size>
-                <width>150</width>
+                <width>132</width>
                 <height>0</height>
                </size>
               </property>
@@ -485,6 +669,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="edges_color_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -507,6 +697,12 @@
             </item>
             <item>
              <widget class="QSlider" name="edges_thikness_slider">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>150</width>
@@ -528,6 +724,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="background_color_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -541,6 +743,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="reset_model_settings_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -554,6 +762,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="screenshot_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -567,10 +781,16 @@
           </item>
           <item>
            <widget class="QPushButton" name="record_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>25</height>
+              <height>30</height>
              </size>
             </property>
             <property name="text">
@@ -613,6 +833,7 @@
           </property>
           <property name="font">
            <font>
+            <pointsize>-1</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -754,7 +975,7 @@
      <x>0</x>
      <y>0</y>
      <width>1687</width>
-     <height>30</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>
