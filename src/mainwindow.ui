@@ -28,6 +28,7 @@ QPushButton:hover {
 	border-style: none;
     transition: 11s;
     font-size: 16px;
+    color: white
 }
 
 QScrollBar:vertical
@@ -171,10 +172,7 @@ QDoubleSpinBox::up-button:hover {
          <bool>true</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">QScrollArea {
-  backgrund-color: rgb(44, 44, 44);
-  color: rgb(44, 44, 44)
-}</string>
+         <string notr="true"/>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
@@ -185,7 +183,7 @@ QDoubleSpinBox::up-button:hover {
            <x>0</x>
            <y>0</y>
            <width>285</width>
-           <height>933</height>
+           <height>945</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
