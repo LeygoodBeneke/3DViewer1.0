@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     glWidget = new GLWidget(ui->openGLWidget);
-
+    glWidget->setFixedSize(1350, 1000); //need to check its size
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
 }
 
