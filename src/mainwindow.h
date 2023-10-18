@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QColorDialog>
+#include "openglwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +19,11 @@ class MainWindow : public QMainWindow
 
  private:
   Ui::MainWindow *ui;
+  GLWidget *glWidget;
+
+  private slots:
+  void change_background_color();
+
 };
 #endif // MAINWINDOW_H
+
