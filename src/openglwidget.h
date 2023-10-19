@@ -2,7 +2,6 @@
 #define OPENGLWIDGET_H
 
 #include <QOpenGLWidget>
-#include <QLabel>
 
 class GLWidget: public QOpenGLWidget {
     Q_OBJECT
@@ -11,11 +10,10 @@ public:
     GLWidget(QWidget *parent = nullptr);
     ~GLWidget();
 
+    QString modelPath;
+
     QColor get_background() { return background; }
     void set_background(QColor color) { background = color; }
-
-    QImage take_screenshot();
-    QLabel filename;
 
     void initializeGL() override;
     void paintGL() override;
@@ -23,6 +21,7 @@ public:
 
 private:
     QColor background;
+
 };
 
 #endif // OPENGLWIDGET_H
