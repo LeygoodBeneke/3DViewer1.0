@@ -53,3 +53,12 @@ dkms.conf
 
 # Clion files
 .idea/
+
+# update
+src/.qmake.stash
+src/Makefile
+src/compile_commands.json
+src/moc_mainwindow.cpp
+src/moc_predefs.h
+src/src
+src/ui_mainwindow.h
