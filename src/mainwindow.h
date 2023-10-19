@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 extern "C" {
-#include "parser.h"
+#include "parser/parser.h"
 };
 
 QT_BEGIN_NAMESPACE
