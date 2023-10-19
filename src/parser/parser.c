@@ -1,5 +1,6 @@
 #include "parser.h"
 //TODO скорее всего есть утечки, необходимо проверить и исправить
+//TODO написать функцию для очистки массива surface и points
 void parser(char *file_path, point **points, int *points_len, surface **surf, int *surf_len) {
     int trigger = 0;
     int error = 0;
@@ -95,7 +96,6 @@ surface *get_surface(point *p, int length, FILE *fp, int number_surfaces, point 
     ssize_t read = 0;
     char* line = NULL;// нужно чистить
     int true = 1;
-    int trigger = 0; //TODO вспомнить зачем это было нужно
     int i = 0;
 
 
@@ -162,6 +162,7 @@ void create_surface(surface *surf, char *line, point *points) {
     int point_num = 0;
     int i = 0;
     //TODO исправить оишбку с точность при приведении к int
+    //TODO заменить функцию atoi на strtol
     while(token != NULL) {
         token = strtok(NULL, " /");
         if(token != NULL) {
