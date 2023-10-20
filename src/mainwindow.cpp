@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(load_file()));
     connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(take_screenshot()));
+    connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(create_gif()));
 }
 
 MainWindow::~MainWindow()
@@ -62,5 +63,23 @@ void MainWindow::take_screenshot()
         pixmap.fill(Qt::white);
         glWidget->render(&pixmap, QPoint(), renderRect);
         pixmap.save(filepath + "." + extension, extension.toUtf8().constData());
+    }
+}
+
+void MainWindow::create_gif()
+{
+    QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString filter = "GIF files (*.gif);;All Files (*)";
+    QString filepath = QFileDialog::getSaveFileName(this, "Enter the name of screenshot", filename, filter);
+    if (!filepath.isEmpty()){
+        QGifImage gif(QSize(640, 480));
+        gif.setDefaultDelay(100);
+        for (QVector<QImage>::Iterator screen = gif.begin(); screen != gif.end();
+             ++screen) {
+            gif_image.addFrame(*screen);
+        }
+        gif_image.save(gif_name);
+        gif.clear();
+        count = 0.0;
     }
 }

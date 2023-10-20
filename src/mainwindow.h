@@ -11,6 +11,7 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <QPixmap>
+#include <QMovie>
 
 #include "openglwidget.h"
 
@@ -34,6 +35,7 @@ class MainWindow : public QMainWindow
   void change_background_color();
   void load_file();
   void take_screenshot();
+  void create_gif();
 
 };
 #endif // MAINWINDOW_H
