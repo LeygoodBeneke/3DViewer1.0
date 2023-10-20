@@ -344,7 +344,7 @@
            <widget class="QComboBox" name="projection_type_combobox">
             <property name="minimumSize">
              <size>
-              <width>132</width>
+              <width>108</width>
               <height>30</height>
              </size>
             </property>
@@ -384,7 +384,7 @@
            <widget class="QComboBox" name="vertices_display_method_combobox">
             <property name="minimumSize">
              <size>
-              <width>132</width>
+              <width>108</width>
               <height>30</height>
              </size>
             </property>
@@ -507,7 +507,7 @@
              <widget class="QComboBox" name="edges_type_combobox">
               <property name="minimumSize">
                <size>
-                <width>132</width>
+                <width>108</width>
                 <height>0</height>
                </size>
               </property>
@@ -728,7 +728,7 @@
            </widget>
           </item>
           <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-           <widget class="QLabel" name="label_112">
+           <widget class="QLabel" name="Filename_Label">
             <property name="maximumSize">
              <size>
               <width>100</width>
@@ -839,7 +839,7 @@
      <x>0</x>
      <y>0</y>
      <width>1687</width>
-     <height>27</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
