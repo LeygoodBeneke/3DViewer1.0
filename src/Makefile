@@ -6,8 +6,6 @@ OBJ_PROJECT =
 TESTS =
 UNAME = $(shell uname -s)
 
-.PHONY: all dvi dist
-
 ifeq ($(UNAME), Linux)
 	LDFLAGS = -lcheck -lm -lrt -lpthread -lsubunit
 	OPEN_CM = xdg-open
@@ -16,6 +14,8 @@ ifeq ($(UNAME), Darwin)
 	LDFLAGS = -lcheck -lm
 	OPEN_CM = open
 endif
+
+.PHONY: all dvi dist
 
 all: clean install
 
