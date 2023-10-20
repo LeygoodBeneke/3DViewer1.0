@@ -1,12 +1,12 @@
 CC = gcc
 CFLAGS = -Werror -Wextra -Wall -std=c11 -pedantic
-SOURCES =
+SOURCES = 
 LIBRARY = 
 OBJ_PROJECT = 
 TESTS =
 UNAME = $(shell uname -s)
 
-.PHONY: all dvi
+.PHONY: all dvi dist
 
 ifeq ($(UNAME), Linux)
 	LDFLAGS = -lcheck -lm -lrt -lpthread -lsubunit
