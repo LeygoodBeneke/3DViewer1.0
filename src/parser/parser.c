@@ -1,6 +1,7 @@
 #include "parser.h"
 //TODO скорее всего есть утечки, необходимо проверить и исправить
 //TODO написать функцию для очистки массива surface и points
+//TODO переписать surface, нужно получить массив типа [[1,2], [2,4], [4,3], [3,1], [4,6],[6,5]]. [1,2]- это структура типа Line
 void parser(char *file_path, point **points, int *points_len, surface **surf, int *surf_len) {
     int trigger = 0;
     int error = 0;
