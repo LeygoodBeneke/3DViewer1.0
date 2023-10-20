@@ -20,9 +20,12 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
-include(../QtGifImage/src/3rdParty/qtgifimage.pri)
+include(QtGifImage/src/3rdParty/giflib.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+SUBDIRS += \
+    QtGifImage/gifimage.pro

@@ -2,16 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QString>
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QMessageBox>
 #include <QDir>
-#include <QFileDialog>
 #include <QFileInfo>
 #include <QDateTime>
 #include <QPixmap>
-#include <QMovie>
+#include "QtGifImage/src/gifimage/qgifimage.h"
 
 #include "openglwidget.h"
 
@@ -31,7 +29,7 @@ class MainWindow : public QMainWindow
   Ui::MainWindow *ui;
   GLWidget *glWidget;
 
-  private slots:
+ private slots:
   void change_background_color();
   void load_file();
   void take_screenshot();

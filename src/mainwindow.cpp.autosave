@@ -79,7 +79,5 @@ void MainWindow::create_gif()
             gif.addFrame(*screen);
         }
         gif.save(filename);
-        gif.clear();
-        count = 0.0;
     }
 }
