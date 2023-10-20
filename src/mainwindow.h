@@ -9,6 +9,7 @@
 #include <QFileInfo>
 #include <QDateTime>
 #include <QPixmap>
+#include <QImage>
 #include "QtGifImage/src/gifimage/qgifimage.h"
 
 #include "openglwidget.h"

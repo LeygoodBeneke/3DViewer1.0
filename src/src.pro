@@ -29,3 +29,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 SUBDIRS += \
     QtGifImage/gifimage.pro
+
+DEFINES += SRCDIR=\\\"$$PWD/\\\"
