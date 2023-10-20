@@ -21,7 +21,6 @@ public:
 
 private:
     QColor background;
-
 };
 
 #endif // OPENGLWIDGET_H

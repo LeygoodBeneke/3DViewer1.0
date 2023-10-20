@@ -68,17 +68,19 @@ void MainWindow::take_screenshot()
 
 void MainWindow::create_gif()
 {
-    QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    QString filter = "GIF files (*.gif);;All Files (*)";
-    QString filepath = QFileDialog::getSaveFileName(this, "Enter the name of screenshot", SRCDIR + filename, filter);
-    if (!filepath.isEmpty()){
-        QGifImage gif(QSize(640, 480));
-        gif.setDefaultDelay(100);
-        for (QVector<QImage>::Iterator img = gif.begin(); img != gif.end();
-             ++img) {
-            gif.addFrame(*img);
-        }
-        gif.save(filename);
-        delete gif;
-    }
+    // QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    // QString filter = "GIF files (*.gif);;All Files (*)";
+    // QString filepath = QFileDialog::getSaveFileName(this, "Enter the name of screenshot", SRCDIR + filename, filter);
+    // QVector<QImage> img;
+    // QVector<QImage>::Iterator it;
+    //     if (!filepath.isEmpty()){
+    //     QGifImage gif(QSize(640, 480));
+    //     gif.setDefaultDelay(100);
+    //     //while(it.hasNext())
+    //     for (it = img.begin(); it != img.end(); it++) {
+    //         gif.addFrame(*it);
+    //     }
+    //     gif.save(filename);
+    //     img.clear();
+    // }
 }
