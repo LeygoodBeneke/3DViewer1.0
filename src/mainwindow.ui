@@ -185,7 +185,7 @@ QDoubleSpinBox::up-button:hover {
            <x>0</x>
            <y>0</y>
            <width>300</width>
-           <height>882</height>
+           <height>872</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -480,7 +480,7 @@ QDoubleSpinBox::up-button:hover {
            <widget class="QComboBox" name="projection_type_combobox">
             <property name="minimumSize">
              <size>
-              <width>108</width>
+              <width>132</width>
               <height>30</height>
              </size>
             </property>
@@ -520,7 +520,7 @@ QDoubleSpinBox::up-button:hover {
            <widget class="QComboBox" name="vertices_display_method_combobox">
             <property name="minimumSize">
              <size>
-              <width>108</width>
+              <width>132</width>
               <height>30</height>
              </size>
             </property>
@@ -643,7 +643,7 @@ QDoubleSpinBox::up-button:hover {
              <widget class="QComboBox" name="edges_type_combobox">
               <property name="minimumSize">
                <size>
-                <width>108</width>
+                <width>132</width>
                 <height>0</height>
                </size>
               </property>
@@ -955,15 +955,12 @@ QDoubleSpinBox::up-button:hover {
      </layout>
     </item>
     <item>
-     <widget class="QOpenGLWidget" name="openGLWidget">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <widget class="GLWidget" name="widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>0</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -975,7 +972,7 @@ QDoubleSpinBox::up-button:hover {
      <x>0</x>
      <y>0</y>
      <width>1687</width>
-     <height>23</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>
@@ -1005,6 +1002,14 @@ QDoubleSpinBox::up-button:hover {
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GLWidget</class>
+   <extends>QWidget</extends>
+   <header>glwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

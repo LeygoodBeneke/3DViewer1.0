@@ -6,9 +6,6 @@ MainWindow::MainWindow(QWidget *parent)
       , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setFixedSize(geometry().width(), geometry().height());
-    glWidget = new GLWidget(ui->openGLWidget);
-    glWidget->setFixedSize(1350, 1000);
 
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(load_file()));

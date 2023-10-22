@@ -12,7 +12,7 @@
 #include <QImage>
 #include "QtGifImage/src/gifimage/qgifimage.h"
 
-#include "openglwidget.h"
+#include "glwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

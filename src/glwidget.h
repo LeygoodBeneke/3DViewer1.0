@@ -1,5 +1,5 @@
-#ifndef OPENGLWIDGET_H
-#define OPENGLWIDGET_H
+#ifndef GLWIDGET_H
+#define GLWIDGET_H
 
 #include <QOpenGLWidget>
 
@@ -20,7 +20,10 @@ public:
     void resizeGL(int w, int h) override;
 
 private:
+    void drawStar(float fX, float fY);
+    void drawStars();
+    void drawStripes();
     QColor background;
 };
 
-#endif // OPENGLWIDGET_H
+#endif // GLWIDGET_H
