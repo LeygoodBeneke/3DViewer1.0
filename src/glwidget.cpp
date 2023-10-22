@@ -1,4 +1,5 @@
 #include "glwidget.h"
+#include <iostream>
 
 GLWidget::GLWidget(QWidget* parent)
     : QOpenGLWidget(parent)
@@ -13,10 +14,44 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
-    glClearColor(0.0, 0.0, 102.0/255.0, 0.0);
+    triangleVertexArray[0][0] = 0.0;
+    triangleVertexArray[0][1] = 0.0;
+    triangleVertexArray[0][2] = 0.0;
+    triangleVertexArray[1][0] = 1.0;
+    triangleVertexArray[1][1] = 1.0;
+    triangleVertexArray[1][2] = 0.0;
+    triangleVertexArray[2][0] = 1.0;
+    triangleVertexArray[2][1] = 0.0;
+    triangleVertexArray[2][2] = 0.0;
+    triangleColorArray[0][0] = 0.25;
+    triangleColorArray[0][1] = 0.87;
+    triangleColorArray[0][2] = 0.81;
+    triangleColorArray[1][0] = 0.25;
+    triangleColorArray[1][1] = 0.87;
+    triangleColorArray[1][2] = 0.81;
+    triangleColorArray[2][0] = 0.25;
+    triangleColorArray[2][1] = 0.87;
+    triangleColorArray[2][2] = 0.81;
+    triangleIndexArray[0][0] = 0;
+    triangleIndexArray[0][1] = 1;
+    triangleIndexArray[0][2] = 2;
+
+    glVertexPointer(3, GL_FLOAT, 0, triangleVertexArray);
+    glColorPointer(3, GL_FLOAT, 0, triangleColorArray);
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, triangleIndexArray);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+
+
+    // Инициализируем OpenGL
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+
+    // Устанавливаем размер окна
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
 }
 
 void GLWidget::resizeGL(int width, int height)
@@ -26,10 +61,55 @@ void GLWidget::resizeGL(int width, int height)
 
 void GLWidget::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    drawStripes();
-    drawStars();
-    glFlush();
+
+//     Белая сторона — ЗАДНЯЯ
+    glBegin(GL_POLYGON);
+    glColor3f(   1.0,  1.0, 1.0 );
+    glVertex3f(  0.5, -0.5, 0.5 );
+    glVertex3f(  0.5,  0.5, 0.5 );
+    glVertex3f( -0.5,  0.5, 0.5 );
+    glVertex3f( -0.5, -0.5, 0.5 );
+    glEnd();
+
+    // Фиолетовая сторона — ПРАВАЯ
+    glBegin(GL_POLYGON);
+    glColor3f(  1.0,  0.0,  1.0 );
+    glVertex3f( 0.5, -0.5, -0.5 );
+    glVertex3f( 0.5,  0.5, -0.5 );
+    glVertex3f( 0.5,  0.5,  0.5 );
+    glVertex3f( 0.5, -0.5,  0.5 );
+    glEnd();
+
+    // Зеленая сторона — ЛЕВАЯ
+    glBegin(GL_POLYGON);
+    glColor3f(   0.0,  1.0,  0.0 );
+    glVertex3f( -0.5, -0.5,  0.5 );
+    glVertex3f( -0.5,  0.5,  0.5 );
+    glVertex3f( -0.5,  0.5, -0.5 );
+    glVertex3f( -0.5, -0.5, -0.5 );
+    glEnd();
+
+    // Синяя сторона — ВЕРХНЯЯ
+    glBegin(GL_POLYGON);
+    glColor3f(   0.0,  0.0,  1.0 );
+    glVertex3f(  0.5,  0.5,  0.5 );
+    glVertex3f(  0.5,  0.5, -0.5 );
+    glVertex3f( -0.5,  0.5, -0.5 );
+    glVertex3f( -0.5,  0.5,  0.5 );
+    glEnd();
+
+    // Красная сторона — НИЖНЯЯ
+    glBegin(GL_POLYGON);
+    glColor3f(   1.0,  0.0,  0.0 );
+    glVertex3f(  0.5, -0.5, -0.5 );
+    glVertex3f(  0.5, -0.5,  0.5 );
+    glVertex3f( -0.5, -0.5,  0.5 );
+    glVertex3f( -0.5, -0.5, -0.5 );
+    glEnd();
+
+    glRotatef(prev_angle_x - angle_x, 0, 1, 0);
+    glRotatef(prev_angle_y - angle_y, 1, 0, 0);
+    glRotatef(prev_angle_z - angle_z, 0, 0, 1);`
 }
 
 void GLWidget::drawStar(float fX, float fY)
@@ -112,4 +192,19 @@ void GLWidget::drawStripes()
       glVertex3f(fStartX, fEndY, 0.0);
       glEnd();
     }
+}
+void GLWidget::rotation(double angle, double *prev_value, double *new_value) {
+    *prev_value = *new_value;
+    *new_value = angle;
+    repaint();
+}
+
+void GLWidget::rotation_x(double angle) {
+    rotation(angle, &prev_angle_x, &angle_x);
+}
+void GLWidget::rotation_y(double angle) {
+    rotation(angle, &prev_angle_y, &angle_y);
+}
+void GLWidget::rotation_z(double angle) {
+    rotation(angle, &prev_angle_z, &angle_z);
 }

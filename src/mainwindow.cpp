@@ -1,16 +1,31 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <iostream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
       , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    glWidget = ui->widget;
 
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(load_file()));
     connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(take_screenshot()));
-    connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(create_gif()));
+
+
+
+    //connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(create_gif()));
+
+    connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(rotation_x()));
+
+
+    //connect(ui->rotation_x_spinbox, SIGNAL(valueChanged(int)), this, SLOT(set_rotation_x(int)));
+
+    connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_x(double)));
+    connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_y(double)));
+    connect (ui->rotation_z_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_z(double)));
 }
 
 MainWindow::~MainWindow()
@@ -41,6 +56,8 @@ void MainWindow::change_background_color()
       glWidget->set_background(new_bg);
       glWidget->update();
     }
+
+    ui->widget->rotation_x(10);
 }
 
 void MainWindow::take_screenshot()
@@ -80,4 +97,14 @@ void MainWindow::create_gif()
     //     gif.save(filename);
     //     img.clear();
     // }
+}
+
+void MainWindow::set_rotation_x(double value) {
+    glWidget->rotation_x(value);
+}
+void MainWindow::set_rotation_y(double value) {
+    glWidget->rotation_y(value);
+}
+void MainWindow::set_rotation_z(double value) {
+    glWidget->rotation_z(value);
 }

@@ -36,6 +36,10 @@ class MainWindow : public QMainWindow
   void take_screenshot();
   void create_gif();
 
+  void set_rotation_x(double x);
+  void set_rotation_y(double x);
+  void set_rotation_z(double x);
+
 };
 #endif // MAINWINDOW_H
 
