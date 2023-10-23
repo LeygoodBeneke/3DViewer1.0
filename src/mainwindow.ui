@@ -955,7 +955,7 @@ QDoubleSpinBox::up-button:hover {
      </layout>
     </item>
     <item>
-     <widget class="QOpenGLWidget" name="openGLWidget">
+     <widget class="GLWidget" name="openGLWidget">
       <property name="enabled">
        <bool>true</bool>
       </property>

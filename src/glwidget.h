@@ -1,5 +1,5 @@
-#ifndef OPENGLWIDGET_H
-#define OPENGLWIDGET_H
+#ifndef GLWIDGET_H
+#define GLWIDGET_H
 
 #include <QOpenGLWidget>
 
@@ -23,4 +23,4 @@ private:
     QColor background;
 };
 
-#endif // OPENGLWIDGET_H
+#endif // GLWIDGET_H

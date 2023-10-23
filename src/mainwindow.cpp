@@ -6,9 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
       , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setFixedSize(geometry().width(), geometry().height());
-    glWidget = new GLWidget(ui->openGLWidget);
-    glWidget->setFixedSize(1350, 1000);
+    glWidget = ui->openGLWidget;
 
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(load_file()));
@@ -68,19 +66,50 @@ void MainWindow::take_screenshot()
 
 void MainWindow::create_gif()
 {
-    // QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    // QString filter = "GIF files (*.gif);;All Files (*)";
-    // QString filepath = QFileDialog::getSaveFileName(this, "Enter the name of screenshot", SRCDIR + filename, filter);
-    // QVector<QImage> img;
-    // QVector<QImage>::Iterator it;
-    //     if (!filepath.isEmpty()){
-    //     QGifImage gif(QSize(640, 480));
-    //     gif.setDefaultDelay(100);
-    //     //while(it.hasNext())
-    //     for (it = img.begin(); it != img.end(); it++) {
-    //         gif.addFrame(*it);
-    //     }
-    //     gif.save(filename);
-    //     img.clear();
-    // }
+    //QTimer timer;
+    QGifImage gif(QSize(640, 480));
+    QVector<QImage> img;
+    gif.setDefaultDelay(100);
+    for (QVector<QImage>::Iterator it = img.begin(); it != img.end(); ++it) {
+        gif.addFrame(*it);
+    }
+    QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString filter = "GIF files (*.gif);;All Files (*)";
+    QString filepath = QFileDialog::getSaveFileName(this, "Enter the name of screenshot", SRCDIR + filename, filter);
+    gif.save(filepath);
+    img.clear();
 }
+
+
+
+
+//while (it++ != img.end()) {
+//     gif.addFrame(*it);
+//}
+//         for (it = img.begin(); it != img.end(); ++it) {
+//             gif.addFrame(*it);
+//         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVector>
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QMessageBox>
@@ -12,7 +13,7 @@
 #include <QImage>
 #include "QtGifImage/src/gifimage/qgifimage.h"
 
-#include "openglwidget.h"
+#include "glwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,7 +36,8 @@ class MainWindow : public QMainWindow
   void load_file();
   void take_screenshot();
   void create_gif();
-
+//  void load_settings();
+//  void save_settings();
 };
 #endif // MAINWINDOW_H
 
