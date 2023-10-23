@@ -11,6 +11,7 @@
 #include <QDateTime>
 #include <QPixmap>
 #include <QImage>
+#include <QTimer>
 #include "QtGifImage/src/gifimage/qgifimage.h"
 
 #include "glwidget.h"
@@ -30,11 +31,16 @@ class MainWindow : public QMainWindow
  private:
   Ui::MainWindow *ui;
   GLWidget *glWidget;
+  QTimer *timer;
+  //QVector<QImage> frames[50];
+  QGifImage *gif;
+  int counter;
 
  private slots:
-  void change_background_color();
-  void load_file();
-  void take_screenshot();
+  void on_bg_btn_clicked();
+  void on_load_file_btn_clicked();
+  void on_snap_btn_clicked();
+  void on_gif_btn_clicked();
   void create_gif();
 //  void load_settings();
 //  void save_settings();
