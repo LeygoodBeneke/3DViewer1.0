@@ -2,10 +2,9 @@
 #include <iostream>
 
 GLWidget::GLWidget(QWidget* parent)
-    : QOpenGLWidget(parent)
-{
-    background = QColor(Qt::black);
-}
+    : QOpenGLWidget(parent),
+      background(QColor(Qt::black)),
+      vertices_color(QColor(Qt::white)) {}
 
 GLWidget::~GLWidget()
 {
@@ -120,7 +119,7 @@ void GLWidget::paintGL()
     glPointSize(vertices_size);
 
     glBegin(GL_POINTS);
-    glColor3f(0, 1.0, 1.0);
+    glColor3f(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
     for (int i = 0; i < 8; i++) {
       glVertex3f(cubeCoords[i][0],cubeCoords[i][1],cubeCoords[i][2]);
     }
@@ -195,7 +194,11 @@ void GLWidget::rotation_z(double angle) {
 
 void GLWidget::set_vertices_size(int value) {
     vertices_size = value;
-    std:: cout << "YES";
     update();
-    repaint();
 }
+
+void GLWidget::set_vertices_color(QColor new_color) {
+    vertices_color = new_color;
+    update();
+}
+

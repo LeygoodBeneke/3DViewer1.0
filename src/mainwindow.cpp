@@ -11,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
     glWidget = ui->widget;
 
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
+
+    connect(ui->vertices_color_btn,SIGNAL(clicked()),this,SLOT(change_vertices_color()));
+
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(load_file()));
     connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(take_screenshot()));
 
@@ -58,6 +61,12 @@ void MainWindow::change_background_color()
       glWidget->set_background(new_bg);
       glWidget->update();
     }
+}
+
+void MainWindow::change_vertices_color()
+{
+    QColor new_color = QColorDialog::getColor(Qt::white, this, tr("Vertices Color:"));
+    glWidget->set_vertices_color(new_color);
 }
 
 void MainWindow::take_screenshot()

@@ -32,6 +32,7 @@ class MainWindow : public QMainWindow
 
  private slots:
   void change_background_color();
+  void change_vertices_color();
   void load_file();
   void take_screenshot();
   void create_gif();
