@@ -138,6 +138,9 @@ void GLWidget::paintGL()
     glRotatef(prev_angle_x - angle_x, 0, 1, 0);
     glRotatef(prev_angle_y - angle_y, 1, 0, 0);
     glRotatef(prev_angle_z - angle_z, 0, 0, 1);
+    prev_angle_x = angle_x;
+    prev_angle_y = angle_y;
+    prev_angle_z = angle_z;
 
 }
 

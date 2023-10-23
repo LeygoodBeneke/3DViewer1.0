@@ -31,10 +31,6 @@ public:
     void set_vertices_color(QColor new_color);
     void set_vertices_method(int value);
 
-    double angle_x = 0, prev_angle_x = 0;
-    double angle_y = 0, prev_angle_y = 0;
-    double angle_z = 0, prev_angle_z = 0;
-
     enum VerticesDisplayMethod {
       SQUARE,
       CIRCLE
@@ -52,6 +48,9 @@ private:
     GLubyte triangleIndexArray[1][3];
 
     GLfloat vertices_size = 5.0;
+    double angle_x = 0, prev_angle_x = 0;
+    double angle_y = 0, prev_angle_y = 0;
+    double angle_z = 0, prev_angle_z = 0;
     QColor vertices_color;
 
     VerticesDisplayMethod vetr_method = VerticesDisplayMethod::SQUARE;
