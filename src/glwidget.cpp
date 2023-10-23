@@ -30,7 +30,6 @@ void GLWidget::initializeGL()
     cubeCoords[3][1] = -0.5;
     cubeCoords[3][2] = -0.5;
 
-
     cubeCoords[4][0] = -0.5;
     cubeCoords[4][1] = 0.5;
     cubeCoords[4][2] = -0.5;
@@ -48,7 +47,41 @@ void GLWidget::initializeGL()
     cubeCoords[7][2] = -0.5;
 
 
+    cubeLines[0][0] = 0;
+    cubeLines[0][1] = 1;
 
+    cubeLines[1][0] = 1;
+    cubeLines[1][1] = 2;
+
+    cubeLines[2][0] = 2;
+    cubeLines[2][1] = 3;
+
+    cubeLines[3][0] = 3;
+    cubeLines[3][1] = 0;
+
+    cubeLines[4][0] = 4;
+    cubeLines[4][1] = 5;
+
+    cubeLines[5][0] = 5;
+    cubeLines[5][1] = 6;
+
+    cubeLines[6][0] = 6;
+    cubeLines[6][1] = 7;
+
+    cubeLines[7][0] = 7;
+    cubeLines[7][1] = 4;
+
+    cubeLines[8][0] = 0;
+    cubeLines[8][1] = 4;
+
+    cubeLines[9][0] = 1;
+    cubeLines[9][1] = 5;
+
+    cubeLines[10][0] = 2;
+    cubeLines[10][1] = 6;
+
+    cubeLines[11][0] = 3;
+    cubeLines[11][1] = 7;
 
     // Инициализируем OpenGL
 
@@ -66,40 +99,30 @@ void GLWidget::resizeGL(int width, int height)
 void GLWidget::paintGL()
 {
     glEnable( GL_PROGRAM_POINT_SIZE );
-    glPointSize(6.0);
+    glPointSize(20.0);
 
     glBegin(GL_POINTS);
-    glColor3f(1.0, 1.0, 1.0);
+    glColor3f(0, 1.0, 1.0);
     for (int i = 0; i < 8; i++) {
       glVertex3f(cubeCoords[i][0],cubeCoords[i][1],cubeCoords[i][2]);
     }
     glEnd();
 
-
-
-    for (int i = 0; i < 4; i++) {
-      glBegin(GL_LINES);
-        glColor3f(0.7, 0.7, 0.7);
-        glVertex3f(cubeCoords[i][0], cubeCoords[i][1], cubeCoords[i][2]);
-        glVertex3f(cubeCoords[(i + 1) % 4][0], cubeCoords[(i + 1) % 4][1], cubeCoords[(i + 1) % 4][2]);
-      glEnd();
+    glBegin(GL_LINES);
+    glColor3f(0.7, 0.7, 0.7);
+    for (int i = 0; i < 12; i++) {
+        glVertex3f(
+          cubeCoords[cubeLines[i][0]][0],
+          cubeCoords[cubeLines[i][0]][1],
+          cubeCoords[cubeLines[i][0]][2]
+        );
+        glVertex3f(
+          cubeCoords[cubeLines[i][1]][0],
+          cubeCoords[cubeLines[i][1]][1],
+          cubeCoords[cubeLines[i][1]][2]
+        );
     }
-
-    for (int i = 4; i < 8; i++) {
-      glBegin(GL_LINES);
-      glColor3f(0.7, 0.7, 0.7);
-      glVertex3f(cubeCoords[i][0], cubeCoords[i][1], cubeCoords[i][2]);
-      glVertex3f(cubeCoords[(i - 4) % 4][0], cubeCoords[(i + 1) % 4][1], cubeCoords[(i - 4) % 4][2]);
-      glEnd();
-    }
-
-    for (int i = 4; i < 8; i++) {
-      glBegin(GL_LINES);
-      glColor3f(0.7, 0.7, 0.7);
-      glVertex3f(cubeCoords[i][0], cubeCoords[i][1], cubeCoords[i][2]);
-      glVertex3f(cubeCoords[(i + 1) % 4 + 4][0], cubeCoords[(i + 1) % 4 + 4][1], cubeCoords[(i + 1) % 4 + 4][2]);
-      glEnd();
-    }
+    glEnd();
 
     drawAxis();
 

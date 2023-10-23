@@ -43,8 +43,9 @@ private:
     GLubyte triangleIndexArray[1][3];
 
 
-    // for fun
+    // (должен заполнять парсер)
     GLfloat cubeCoords[8][3];
+    GLint cubeLines[12][2];
 
 };
 
