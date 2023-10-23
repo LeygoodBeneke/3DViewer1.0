@@ -17,137 +17,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton {
-  background-color: rgb(32, 32, 32)
-}
-QPushButton:hover {
-  background-color: rgb(11, 149, 255);
-}
-* {
-	background-color: rgb(25, 25, 25);
-	border-style: none;
-    transition: 11s;
-    font-size: 16px;
-}
-
-QScrollBar:vertical
-    {
-        background-color: rgb(32, 32, 32);
-        width: 15px;
-        border-radius: 0px;
-    }
-  QScrollBar::handle:vertical
-    {
-        background-color: rgb(44, 44, 44);         /* #605F5F; */
-        min-height: 5px;
-        border-radius: 0px;
-    }
-
-    QScrollBar::sub-line:vertical
-    {
-        margin: 3px 0px 3px 0px;
-        border-image: url(:/qss_icons/rc/up_arrow_disabled.png);
-        height: 10px;
-        width: 10px;
-        subcontrol-position: top;
-        subcontrol-origin: margin;
-    }
-
-    QScrollBar::add-line:vertical
-    {
-        margin: 3px 0px 3px 0px;
-        border-image: url(:/qss_icons/rc/down_arrow_disabled.png);
-        height: 10px;
-        width: 10px;
-        subcontrol-position: bottom;
-        subcontrol-origin: margin;
-    }
-
-    QScrollBar::sub-line:vertical:hover,QScrollBar::sub-line:vertical:on
-    {
-        border-image: url(:/qss_icons/rc/up_arrow.png);
-        height: 10px;
-        width: 10px;
-        subcontrol-position: top;
-        subcontrol-origin: margin;
-    }
-QDoubleSpinBox {
-	backgroud-color: rgb(255, 255, 255);
-}
-
-QSlider::groove:horizontal {
-    background: rgb(32, 32, 32);
-    height: 18px;
-    margin: 0px 0;
-}
-
-QSlider::handle:horizontal {
-    background: rgb(44, 44, 44);
-    width: 10px;
-    border-radius:  0px;
-}
-
-QComboBox {
-    min-width: 6em;
-	border-radius:  0px;
-}
-
-QComboBox:editable {
-    background: rgb(32, 32, 32);
-}
-
-QComboBox:!editable, QComboBox::drop-down:editable {
-      background: rgb(32, 32, 32);
-}
-
-/* QComboBox gets the &quot;on&quot; state when the popup is open */
-QComboBox:!editable:on, QComboBox::drop-down:editable:on {
-    background: rgb(32, 32, 32);
-}
-
-QComboBox:on { /* shift the text when the popup opens */
-    padding-top: 3px;
-    padding-left: 4px;
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top left;
-    background: rgb(32, 32, 32);
-}
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    top: 3px;
-    left: 4px;
-}
-QComboBox QAbstractItemView {
-    border: 0px;
-    selection-background-color: rgb(40, 40, 40);
-}
-
-QDoubleSpinBox {
-    background: rgb(32, 32, 32);
-}
-QDoubleSpinBox::up-button {
-    background-color: rgb(40, 40, 40);
-    border: 10px;
-}
-
-QDoubleSpinBox::down-button {
-    background-color: rgb(50, 50, 50);
-    border: 2px;
-}
-QDoubleSpinBox::up-arrow {
-    image: url(:/images/down_arrow.png);
-border: 2px;
-}
-QDoubleSpinBox::down-button:hover {
-  background-color: rgb(11, 149, 255);
-}
-QDoubleSpinBox::up-button:hover {
-  background-color: rgb(11, 149, 255);
-}
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -184,8 +54,8 @@ QDoubleSpinBox::up-button:hover {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>300</width>
-           <height>872</height>
+           <width>298</width>
+           <height>881</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -216,7 +86,6 @@ QDoubleSpinBox::up-button:hover {
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -314,7 +183,6 @@ QDoubleSpinBox::up-button:hover {
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <italic>false</italic>
               <bold>true</bold>
              </font>
@@ -419,7 +287,6 @@ QDoubleSpinBox::up-button:hover {
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -467,7 +334,6 @@ QDoubleSpinBox::up-button:hover {
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -480,7 +346,7 @@ QDoubleSpinBox::up-button:hover {
            <widget class="QComboBox" name="projection_type_combobox">
             <property name="minimumSize">
              <size>
-              <width>132</width>
+              <width>0</width>
               <height>30</height>
              </size>
             </property>
@@ -507,7 +373,6 @@ QDoubleSpinBox::up-button:hover {
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -520,7 +385,7 @@ QDoubleSpinBox::up-button:hover {
            <widget class="QComboBox" name="vertices_display_method_combobox">
             <property name="minimumSize">
              <size>
-              <width>132</width>
+              <width>0</width>
               <height>30</height>
              </size>
             </property>
@@ -530,11 +395,9 @@ QDoubleSpinBox::up-button:hover {
               <height>25</height>
              </size>
             </property>
-            <item>
-             <property name="text">
-              <string>None</string>
-             </property>
-            </item>
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
             <item>
              <property name="text">
               <string>Square</string>
@@ -552,7 +415,6 @@ QDoubleSpinBox::up-button:hover {
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -627,7 +489,6 @@ QDoubleSpinBox::up-button:hover {
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -649,7 +510,7 @@ QDoubleSpinBox::up-button:hover {
              <widget class="QComboBox" name="edges_type_combobox">
               <property name="minimumSize">
                <size>
-                <width>132</width>
+                <width>0</width>
                 <height>0</height>
                </size>
               </property>
@@ -839,7 +700,6 @@ QDoubleSpinBox::up-button:hover {
           </property>
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -978,7 +838,7 @@ QDoubleSpinBox::up-button:hover {
      <x>0</x>
      <y>0</y>
      <width>1687</width>
-     <height>27</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

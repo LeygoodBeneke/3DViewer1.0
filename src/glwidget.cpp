@@ -92,20 +92,6 @@ void GLWidget::initializeGL()
 
 void GLWidget::resizeGL(int width, int height)
 {
-    const float aspectRatio = ((float)width) / height;
-    float xSpan = 1; // Feel free to change this to any xSpan you need.
-    float ySpan = 1; // Feel free to change this to any ySpan you need.
-
-    if (aspectRatio > 1){
-      // Width > Height, so scale xSpan accordinly.
-      xSpan *= aspectRatio;
-    }
-    else{
-      // Height >= Width, so scale ySpan accordingly.
-      ySpan = xSpan / aspectRatio;
-    }
-
-    glOrtho(1, 1, 1, 1, -1, 1);
     glViewport(0, 0, (GLint)width, (GLint)height);
 }
 
@@ -117,6 +103,12 @@ void GLWidget::paintGL()
 
     glEnable( GL_PROGRAM_POINT_SIZE );
     glPointSize(vertices_size);
+
+    if (vetr_method == VerticesDisplayMethod::CIRCLE)
+      glEnable(GL_POINT_SMOOTH);
+    else {
+      glDisable(GL_POINT_SMOOTH);
+    }
 
     glBegin(GL_POINTS);
     glColor3f(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
@@ -199,6 +191,11 @@ void GLWidget::set_vertices_size(int value) {
 
 void GLWidget::set_vertices_color(QColor new_color) {
     vertices_color = new_color;
+    update();
+}
+
+void GLWidget::set_vertices_method(int value) {
+    vetr_method = VerticesDisplayMethod(value);
     update();
 }
 

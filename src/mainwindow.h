@@ -42,6 +42,7 @@ class MainWindow : public QMainWindow
   void set_rotation_z(double x);
 
   void set_vertices_size(int value);
+  void set_vertices_method(int value);
 
 };
 #endif // MAINWINDOW_H
