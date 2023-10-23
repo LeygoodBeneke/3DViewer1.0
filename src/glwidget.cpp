@@ -4,7 +4,7 @@
 GLWidget::GLWidget(QWidget* parent)
     : QOpenGLWidget(parent)
 {
-    background = QColor(Qt::white);
+    background = QColor(Qt::black);
 }
 
 GLWidget::~GLWidget()
@@ -86,13 +86,27 @@ void GLWidget::initializeGL()
     // Инициализируем OpenGL
 
     // Устанавливаем размер окна
-    glMatrixMode(GL_MODELVIEW);
+    //glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
 }
 
 void GLWidget::resizeGL(int width, int height)
 {
+    const float aspectRatio = ((float)width) / height;
+    float xSpan = 1; // Feel free to change this to any xSpan you need.
+    float ySpan = 1; // Feel free to change this to any ySpan you need.
+
+    if (aspectRatio > 1){
+      // Width > Height, so scale xSpan accordinly.
+      xSpan *= aspectRatio;
+    }
+    else{
+      // Height >= Width, so scale ySpan accordingly.
+      ySpan = xSpan / aspectRatio;
+    }
+
+    glOrtho(1, 1, 1, 1, -1, 1);
     glViewport(0, 0, (GLint)width, (GLint)height);
 }
 
@@ -103,7 +117,7 @@ void GLWidget::paintGL()
 
 
     glEnable( GL_PROGRAM_POINT_SIZE );
-    glPointSize(20.0);
+    glPointSize(vertices_size);
 
     glBegin(GL_POINTS);
     glColor3f(0, 1.0, 1.0);
@@ -164,7 +178,6 @@ void GLWidget::rotation(double angle, double *prev_value, double *new_value) {
 }
 
 void GLWidget::rotation_x(double angle) {
-    glRotatef(prev_angle_x - angle_x, 0, 1, 0);
     prev_angle_y = angle_y;
     prev_angle_z = angle_z;
     rotation(angle, &prev_angle_x, &angle_x);
@@ -178,4 +191,11 @@ void GLWidget::rotation_z(double angle) {
     prev_angle_y = angle_y;
     prev_angle_x = angle_x;
     rotation(angle, &prev_angle_z, &angle_z);
+}
+
+void GLWidget::set_vertices_size(int value) {
+    vertices_size = value;
+    std:: cout << "YES";
+    update();
+    repaint();
 }

@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_x(double)));
     connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_y(double)));
     connect (ui->rotation_z_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_z(double)));
+
+    connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)),this, SLOT(set_vertices_size(int)));
 }
 
 MainWindow::~MainWindow()
@@ -105,4 +107,7 @@ void MainWindow::set_rotation_y(double value) {
 }
 void MainWindow::set_rotation_z(double value) {
     glWidget->rotation_z(value);
+}
+void MainWindow::set_vertices_size(int value) {
+    glWidget->set_vertices_size(value);
 }

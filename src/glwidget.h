@@ -27,6 +27,8 @@ public:
     void rotation_z(double angle);
     void rotation(double angle, double*, double*);
 
+    void set_vertices_size(int value);
+
     double angle_x = 0, prev_angle_x = 0;
     double angle_y = 0, prev_angle_y = 0;
     double angle_z = 0, prev_angle_z = 0;
@@ -41,6 +43,8 @@ private:
     GLfloat triangleVertexArray[3][3];
     GLfloat triangleColorArray[3][3];
     GLubyte triangleIndexArray[1][3];
+
+    GLfloat vertices_size = 5.0;
 
 
     // (должен заполнять парсер)

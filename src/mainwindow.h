@@ -40,6 +40,8 @@ class MainWindow : public QMainWindow
   void set_rotation_y(double x);
   void set_rotation_z(double x);
 
+  void set_vertices_size(int value);
+
 };
 #endif // MAINWINDOW_H
 

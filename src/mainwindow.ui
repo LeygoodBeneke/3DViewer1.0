@@ -571,7 +571,7 @@ QDoubleSpinBox::up-button:hover {
              </widget>
             </item>
             <item alignment="Qt::AlignRight">
-             <widget class="QSlider" name="certices_size_slider">
+             <widget class="QSlider" name="vertices_size_slider">
               <property name="minimumSize">
                <size>
                 <width>150</width>
@@ -584,11 +584,17 @@ QDoubleSpinBox::up-button:hover {
                 <height>25</height>
                </size>
               </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
               <property name="maximum">
                <number>100</number>
               </property>
+              <property name="singleStep">
+               <number>1</number>
+              </property>
               <property name="value">
-               <number>50</number>
+               <number>1</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
