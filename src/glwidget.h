@@ -2,6 +2,8 @@
 #define GLWIDGET_H
 
 #include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+
 
 class GLWidget: public QOpenGLWidget {
     Q_OBJECT
@@ -34,10 +36,16 @@ private:
     void drawStars();
     void drawStripes();
     QColor background;
+    void drawAxis();
 
     GLfloat triangleVertexArray[3][3];
     GLfloat triangleColorArray[3][3];
     GLubyte triangleIndexArray[1][3];
+
+
+    // for fun
+    GLfloat cubeCoords[8][3];
+
 };
 
 #endif // GLWIDGET_H
