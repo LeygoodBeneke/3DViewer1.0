@@ -56,8 +56,6 @@ void MainWindow::change_background_color()
       glWidget->set_background(new_bg);
       glWidget->update();
     }
-
-    ui->widget->rotation_x(10);
 }
 
 void MainWindow::take_screenshot()
