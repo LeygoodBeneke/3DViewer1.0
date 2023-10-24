@@ -13,37 +13,37 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
-    cubeCoords[0][0] = -0.5;
-    cubeCoords[0][1] = -0.5;
-    cubeCoords[0][2] = -0.5;
+    cubeCoords[0][0] = -0.3;
+    cubeCoords[0][1] = -2;
+    cubeCoords[0][2] = -0.3;
 
-    cubeCoords[1][0] = -0.5;
-    cubeCoords[1][1] = -0.5;
-    cubeCoords[1][2] = 0.5;
+    cubeCoords[1][0] = -0.3;
+    cubeCoords[1][1] = -2;
+    cubeCoords[1][2] = 0.3;
 
-    cubeCoords[2][0] = 0.5;
-    cubeCoords[2][1] = -0.5;
-    cubeCoords[2][2] = 0.5;
+    cubeCoords[2][0] = 0.3;
+    cubeCoords[2][1] = -0.3;
+    cubeCoords[2][2] = 0.3;
 
-    cubeCoords[3][0] = 0.5;
-    cubeCoords[3][1] = -0.5;
-    cubeCoords[3][2] = -0.5;
+    cubeCoords[3][0] = 0.3;
+    cubeCoords[3][1] = -0.3;
+    cubeCoords[3][2] = -0.3;
 
-    cubeCoords[4][0] = -0.5;
-    cubeCoords[4][1] = 0.5;
-    cubeCoords[4][2] = -0.5;
+    cubeCoords[4][0] = -0.3;
+    cubeCoords[4][1] = 0.3;
+    cubeCoords[4][2] = -0.3;
 
-    cubeCoords[5][0] = -0.5;
-    cubeCoords[5][1] = 0.5;
-    cubeCoords[5][2] = 0.5;
+    cubeCoords[5][0] = -0.3;
+    cubeCoords[5][1] = 0.3;
+    cubeCoords[5][2] = 0.3;
 
-    cubeCoords[6][0] = 0.5;
-    cubeCoords[6][1] = 0.5;
-    cubeCoords[6][2] = 0.5;
+    cubeCoords[6][0] = 0.3;
+    cubeCoords[6][1] = 0.3;
+    cubeCoords[6][2] = 0.3;
 
-    cubeCoords[7][0] = 0.5;
-    cubeCoords[7][1] = 0.5;
-    cubeCoords[7][2] = -0.5;
+    cubeCoords[7][0] = 0.3;
+    cubeCoords[7][1] = 0.3;
+    cubeCoords[7][2] = -0.3;
 
 
     cubeLines[0][0] = 0;
@@ -87,23 +87,28 @@ void GLWidget::initializeGL()
     // Устанавливаем размер окна
     glMatrixMode(GL_MODELVIEW);
 
-    //glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    glMatrixMode(GL_PROJECTION);
+//    glLoadIdentity();s
 
-    //gluLookAt(.5, .5, .5, 0, 0, 0, 0, 1, 0);
-    //glOrtho(-2, 2, -2, 2, 0, 0);
+  //   gluLookAt(0, 1, 0, 0, 0, 0, 0, 1, 0);
+//    glMatrixMode(GL_MODELVIEW);
+    glOrtho(-2, 2, -2, 2, -100, 100);
+
+//    gluPerspective(1.22173, 1, 0, 100);
 
 }
 
-void GLWidget::resizeGL(int width, int height)
-{
-    glViewport(0, 0, (GLint)width, (GLint)height);
-
-
-    glTranslatef(0,0.5f,0); // поднимаем по оси
-
-//    GLfloat x = GLfloat(width) / height;
-//    glFrustum(-x, x, -1.0, 1.0, 3.0, 500.0);
+void GLWidget::resizeGL(int width, int height) {
+    glViewport(0, 0, width, height);
+    repaint();
+//    const float aspect = float(width) / float(height);
+//    const float zNear = 0.01f;
+//    const float zFar = 100.f;
+//    //const glm::mat4 proj = glm::perspective(1.22173, aspect, zNear, zFar);
+//    gluPerspective(1.22173, aspect, zNear, zFar);
+//    glMatrixMode(GL_PROJECTION);
+//    //glLoadMatrixf(glm::value_ptr(proj));
+//    glMatrixMode(GL_MODELVIEW);
 }
 
 void GLWidget::paintGL()
@@ -115,6 +120,8 @@ void GLWidget::paintGL()
     glEnable( GL_PROGRAM_POINT_SIZE );
     glPointSize(vertices_size);
 
+
+
     if (vetr_method == VerticesDisplayMethod::CIRCLE)
       glEnable(GL_POINT_SMOOTH);
     else {
@@ -122,9 +129,13 @@ void GLWidget::paintGL()
     }
 
     glBegin(GL_POINTS);
-    glColor3f(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
     for (int i = 0; i < 8; i++) {
-      glVertex3f(cubeCoords[i][0],cubeCoords[i][1],cubeCoords[i][2]);
+      glColor3f(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
+      glVertex3f(
+        cubeCoords[i][0] * scale,
+        cubeCoords[i][1] * scale,
+        cubeCoords[i][2] * scale
+      );
     }
     glEnd();
 
@@ -132,14 +143,14 @@ void GLWidget::paintGL()
     glColor3f(0.7, 0.7, 0.7);
     for (int i = 0; i < 12; i++) {
         glVertex3f(
-          cubeCoords[cubeLines[i][0]][0],
-          cubeCoords[cubeLines[i][0]][1],
-          cubeCoords[cubeLines[i][0]][2]
+          cubeCoords[cubeLines[i][0]][0] * scale,
+          cubeCoords[cubeLines[i][0]][1] * scale,
+          cubeCoords[cubeLines[i][0]][2] * scale
         );
         glVertex3f(
-          cubeCoords[cubeLines[i][1]][0],
-          cubeCoords[cubeLines[i][1]][1],
-          cubeCoords[cubeLines[i][1]][2]
+          cubeCoords[cubeLines[i][1]][0] * scale,
+          cubeCoords[cubeLines[i][1]][1] * scale,
+          cubeCoords[cubeLines[i][1]][2] * scale
         );
     }
     glEnd();
@@ -163,6 +174,8 @@ void GLWidget::paintGL()
     prev_position_y = position_y;
     prev_position_z = position_z;
 
+//    /glScalef(0.5, 0.5, 0.5);
+
 }
 
 void GLWidget::drawAxis()
@@ -170,19 +183,19 @@ void GLWidget::drawAxis()
     glBegin(GL_LINES);
     glColor3f(0.0, 0.0, 1.0);
     glVertex3f(0, 0, 0);
-    glVertex3f(1, 0, 0);
+    glVertex3f(10, 0, 0);
     glEnd();
 
     glBegin(GL_LINES);
     glColor3f(0.0, 1.0, 0.0);
     glVertex3f(0, 0, 0);
-    glVertex3f(0, 1, 0);
+    glVertex3f(0, 10, 0);
     glEnd();
 
     glBegin(GL_LINES);
     glColor3f(1.0, 0.0, 0.0);
     glVertex3f(0, 0, 0);
-    glVertex3f(0, 0, -1);
+    glVertex3f(0, 0, 10);
     glEnd();
 }
 
@@ -238,6 +251,10 @@ void GLWidget::set_position_y(double y) {
 void GLWidget::set_position_z(double z) {
     prev_position_z = position_z;
     position_z = z;
+    update();
+}
+void GLWidget::set_scale(int size) {
+    scale = size / 100.0;
     update();
 }
 

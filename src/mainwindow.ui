@@ -313,13 +313,13 @@
              </size>
             </property>
             <property name="minimum">
-             <number>10</number>
+             <number>1</number>
             </property>
             <property name="maximum">
-             <number>200</number>
+             <number>300</number>
             </property>
             <property name="singleStep">
-             <number>10</number>
+             <number>1</number>
             </property>
             <property name="value">
              <number>100</number>

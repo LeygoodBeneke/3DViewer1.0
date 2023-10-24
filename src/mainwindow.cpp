@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect (ui->position_x_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_x(double)));
     connect (ui->position_y_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_y(double)));
     connect (ui->position_z_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_z(double)));
+
+    connect (ui->model_scale_slider, SIGNAL(valueChanged(int)),ui->widget, SLOT(set_scale(int)));
+
     connect (ui->vertices_display_method_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_vertices_method(int)));
     connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)), ui->widget, SLOT(set_vertices_size(int)));
 }
