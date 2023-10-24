@@ -224,6 +224,8 @@ void parser(char *file_path, point **points, int *points_len, line **lines, int 
     *lines = malloc(1 * sizeof (surface));
     *lines = get_lines(fp, surf_len);
 
+    if(fp)
+        fclose(fp);
 }
 
 void number_of_points_and_surfaces(int* number_points, int* number_surfaces, FILE* fp) {
