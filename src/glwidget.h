@@ -19,8 +19,10 @@ public:
     void paintGL() override;
     void resizeGL(int w, int h) override;
 
-private:
     QColor background;
+
+private:
+
 };
 
 #endif // GLWIDGET_H

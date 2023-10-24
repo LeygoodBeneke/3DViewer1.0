@@ -32,9 +32,9 @@ class MainWindow : public QMainWindow
   Ui::MainWindow *ui;
   GLWidget *glWidget;
   QTimer *timer;
-  //QVector<QImage> frames[50];
   QGifImage *gif;
   int counter;
+  QSettings *settings;
 
  private slots:
   void on_bg_btn_clicked();
@@ -42,8 +42,8 @@ class MainWindow : public QMainWindow
   void on_snap_btn_clicked();
   void on_gif_btn_clicked();
   void create_gif();
-//  void load_settings();
-  //void save_settings();
+  void load_settings();
+  void save_settings();
 };
 #endif // MAINWINDOW_H
 

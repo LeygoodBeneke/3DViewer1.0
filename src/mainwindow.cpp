@@ -7,14 +7,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     glWidget = ui->openGLWidget;
-    settings = new QSettings("S21", "3D_Viewer", this);
+    settings = new QSettings(this);
     load_settings();
 
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(on_bg_btn_clicked()));
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(on_load_file_btn_clicked()));
     connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(on_snap_btn_clicked()));
     connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(on_gif_btn_clicked()));
-
 }
 
 MainWindow::~MainWindow()
@@ -97,15 +96,22 @@ void MainWindow::create_gif()
 
 void MainWindow::save_settings()
 {
-
+    settings->setValue("background", glWidget->get_background());
+    //need to wwrite down the rest of the settings
 }
 
 void MainWindow::load_settings()
 {
-    settings->setValue("title", windowTitle());
-    settings->beginGroup("Appearance");
-    settings->value("background", glWidget->get_background());
+    //glWidget->background = settings->value("background").value<QColor>();
+    //glWidget->set_background(settings->value("backgrounnd").value<QColor>());
     //need to wwrite down the rest of the settings
+    QVariant bgColor = settings->value("background");
+    if (bgColor.isValid() && bgColor.canConvert<QColor>()) {
+        glWidget->set_background(bgColor.value<QColor>());
+    } else {
+        // Если цвет фона не был найден, установите значение по умолчанию
+        glWidget->set_background(Qt::white);
+    }
 }
 
 
