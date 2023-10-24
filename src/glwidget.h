@@ -39,16 +39,21 @@ private:
   void drawAxis();
 
   GLfloat vertices_size = 5.0;
-  double angle_x = 0, prev_angle_x = 0;
-  double angle_y = 0, prev_angle_y = 0;
-  double angle_z = 0, prev_angle_z = 0;
+  double prev_angle_x = 0;
+  double prev_angle_y = 0;
+  double prev_angle_z = 0;
+
+
+  double current_angle_x = 0.0;
+  double current_angle_y = 0.0;
+  double current_angle_z = 0.0;
 
   double scale = 1.0;
 
 
-  double position_x = 0, prev_position_x = 0;
-  double position_y = 0, prev_position_y = 0;
-  double position_z = 0, prev_position_z = 0;
+  double position_x = 0;
+  double position_y = 0;
+  double position_z = 0;
   QColor vertices_color;
 
   VerticesDisplayMethod vetr_method = VerticesDisplayMethod::SQUARE;
@@ -57,6 +62,7 @@ private:
   const static GLint coords_size = 8;
   // (должен заполнять парсер)
   GLfloat cubeCoords[coords_size][3];
+  GLfloat currentCubeCoords[coords_size][3];
   GLint cubeLines[12][2];
 
 public slots:
