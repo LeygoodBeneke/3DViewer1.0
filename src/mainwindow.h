@@ -36,14 +36,6 @@ class MainWindow : public QMainWindow
   void load_file();
   void take_screenshot();
   void create_gif();
-
-  void set_rotation_x(double x);
-  void set_rotation_y(double x);
-  void set_rotation_z(double x);
-
-  void set_vertices_size(int value);
-  void set_vertices_method(int value);
-
 };
 #endif // MAINWINDOW_H
 

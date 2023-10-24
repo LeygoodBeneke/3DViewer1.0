@@ -26,14 +26,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     //connect(ui->rotation_x_spinbox, SIGNAL(valueChanged(int)), this, SLOT(set_rotation_x(int)));
 
-    connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_x(double)));
-    connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_y(double)));
-    connect (ui->rotation_z_spinbox, SIGNAL(valueChanged(double)),this, SLOT(set_rotation_z(double)));
-
-
-    connect (ui->vertices_display_method_combobox, SIGNAL(currentIndexChanged(int)), this, SLOT(set_vertices_method(int)));
-
-    connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)),this, SLOT(set_vertices_size(int)));
+    connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_x(double)));
+    connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_y(double)));
+    connect (ui->rotation_z_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_z(double)));
+    connect (ui->position_x_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_x(double)));
+    connect (ui->position_y_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_y(double)));
+    connect (ui->position_z_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_z(double)));
+    connect (ui->vertices_display_method_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_vertices_method(int)));
+    connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)), ui->widget, SLOT(set_vertices_size(int)));
 }
 
 MainWindow::~MainWindow()
@@ -109,20 +109,4 @@ void MainWindow::create_gif()
     //     gif.save(filename);
     //     img.clear();
     // }
-}
-
-void MainWindow::set_rotation_x(double value) {
-    glWidget->rotation_x(value);
-}
-void MainWindow::set_rotation_y(double value) {
-    glWidget->rotation_y(value);
-}
-void MainWindow::set_rotation_z(double value) {
-    glWidget->rotation_z(value);
-}
-void MainWindow::set_vertices_size(int value) {
-    glWidget->set_vertices_size(value);
-}
-void MainWindow::set_vertices_method(int value) {
-  glWidget->set_vertices_method(value);
 }

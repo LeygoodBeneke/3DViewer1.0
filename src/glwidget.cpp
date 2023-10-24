@@ -85,14 +85,25 @@ void GLWidget::initializeGL()
     // Инициализируем OpenGL
 
     // Устанавливаем размер окна
-    //glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_MODELVIEW);
+
+    //glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+
+    //gluLookAt(.5, .5, .5, 0, 0, 0, 0, 1, 0);
+    //glOrtho(-2, 2, -2, 2, 0, 0);
 
 }
 
 void GLWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, (GLint)width, (GLint)height);
+
+
+    glTranslatef(0,0.5f,0); // поднимаем по оси
+
+//    GLfloat x = GLfloat(width) / height;
+//    glFrustum(-x, x, -1.0, 1.0, 3.0, 500.0);
 }
 
 void GLWidget::paintGL()
@@ -141,6 +152,16 @@ void GLWidget::paintGL()
     prev_angle_x = angle_x;
     prev_angle_y = angle_y;
     prev_angle_z = angle_z;
+
+
+    glTranslatef(
+        prev_position_x - position_x,
+        prev_position_y - position_y,
+        prev_position_z - position_z
+    );
+    prev_position_x = position_x;
+    prev_position_y = position_y;
+    prev_position_z = position_z;
 
 }
 
@@ -199,6 +220,24 @@ void GLWidget::set_vertices_color(QColor new_color) {
 
 void GLWidget::set_vertices_method(int value) {
     vetr_method = VerticesDisplayMethod(value);
+    update();
+}
+
+void GLWidget::set_position_x(double x) {
+    prev_position_x = position_x;
+    position_x = x;
+    update();
+}
+
+void GLWidget::set_position_y(double y) {
+    prev_position_y = position_y;
+    position_y = y;
+    update();
+}
+
+void GLWidget::set_position_z(double z) {
+    prev_position_z = position_z;
+    position_z = z;
     update();
 }
 

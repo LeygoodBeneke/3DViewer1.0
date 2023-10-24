@@ -20,6 +20,8 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
+LIBS += -lglut -lGLU
+
 include(QtGifImage/src/3rdParty/giflib.pri)
 
 # Default rules for deployment.
