@@ -97,21 +97,15 @@ void MainWindow::create_gif()
 void MainWindow::save_settings()
 {
     settings->setValue("background", glWidget->get_background());
-    //need to wwrite down the rest of the settings
+    //...
 }
 
 void MainWindow::load_settings()
 {
-    //glWidget->background = settings->value("background").value<QColor>();
-    //glWidget->set_background(settings->value("backgrounnd").value<QColor>());
-    //need to wwrite down the rest of the settings
-    QVariant bgColor = settings->value("background");
-    if (bgColor.isValid() && bgColor.canConvert<QColor>()) {
-        glWidget->set_background(bgColor.value<QColor>());
-    } else {
-        // Если цвет фона не был найден, установите значение по умолчанию
-        glWidget->set_background(Qt::white);
-    }
+    QColor bg = settings->value("background").value<QColor>();
+    if (bg.isValid()) glWidget->set_background(bg);
+    else glWidget->set_background(Qt::black);
+    //...
 }
 
 
