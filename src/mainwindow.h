@@ -9,9 +9,9 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QDateTime>
-#include <QPixmap>
 #include <QImage>
 #include <QTimer>
+#include <QSettings>
 #include "QtGifImage/src/gifimage/qgifimage.h"
 
 #include "glwidget.h"
@@ -43,7 +43,7 @@ class MainWindow : public QMainWindow
   void on_gif_btn_clicked();
   void create_gif();
 //  void load_settings();
-//  void save_settings();
+  //void save_settings();
 };
 #endif // MAINWINDOW_H
 
