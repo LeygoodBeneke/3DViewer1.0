@@ -3,7 +3,7 @@
 
 GLWidget::GLWidget(QWidget* parent)
     : QOpenGLWidget(parent),
-      background(QColor(Qt::black)),
+      //background(QColor(Qt::black)),
       vertices_color(QColor(Qt::white)) {}
 
 GLWidget::~GLWidget()
