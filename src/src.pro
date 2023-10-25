@@ -1,4 +1,5 @@
 QT       += core gui opengl openglwidgets
+include(QtGifImage/src/gifimage/qtgifimage.pri)
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,14 +23,10 @@ FORMS += \
 
 LIBS += -lglut -lGLU
 
-include(QtGifImage/src/3rdParty/giflib.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-SUBDIRS += \
-    QtGifImage/gifimage.pro
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

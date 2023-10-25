@@ -9,20 +9,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     glWidget = ui->widget;
+    settings = new QSettings(this);
+    load_settings();
 
-    connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
-
-    connect(ui->vertices_color_btn,SIGNAL(clicked()),this,SLOT(change_vertices_color()));
-    connect(ui->edges_color_btn,SIGNAL(clicked()),this,SLOT(change_edges_color()));
-
-    connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(load_file()));
-    connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(take_screenshot()));
-
-
-
+    connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(on_bg_btn_clicked()));
+    connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(on_load_file_btn_clicked()));
+    connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(on_snap_btn_clicked()));
+    connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(on_gif_btn_clicked()));
     //connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(create_gif()));
 
-    connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(rotation_x()));
+    //connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(rotation_x()));
 
 
     //connect(ui->rotation_x_spinbox, SIGNAL(valueChanged(int)), this, SLOT(set_rotation_x(int)));
@@ -43,10 +39,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+  save_settings();
   delete ui;
 }
 
-void MainWindow::load_file()
+void MainWindow::on_load_file_btn_clicked()
 {
     QString path = QFileDialog::getOpenFileName(this, "Load a file", QDir::currentPath());
     QFileInfo fileInfo(path);
@@ -61,7 +58,7 @@ void MainWindow::load_file()
     }
 }
 
-void MainWindow::change_background_color()
+void MainWindow::on_bg_btn_clicked()
 {
     QColor bg = glWidget->get_background();
     QColor new_bg = QColorDialog::getColor(bg, this, tr("Background Color:"));
@@ -83,41 +80,66 @@ void MainWindow::change_edges_color()
     glWidget->set_edges_color(new_color);
 }
 
-void MainWindow::take_screenshot()
+void MainWindow::on_snap_btn_clicked()
 {
-    QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh-mm-ss");
     QString filter = "JPEG Files (*.jpg);;BMP Files (*.bmp);;All Files (*)";
     QString filepath = QFileDialog::getSaveFileName(this, "Enter the name of screenshot", SRCDIR + filename, filter);
     if (!filepath.isEmpty()){
       QString extension = "jpg";
-        extension = QFileInfo(filepath).suffix().toLower();
-        extension = extension.isEmpty() ? "jpg" : extension;
-        if (!(extension == "jpeg" || extension == "jpg" || extension == "bmp")) {
+      extension = QFileInfo(filepath).suffix().toLower();
+      extension = extension.isEmpty() ? "jpg" : extension;
+      if (!(extension == "jpeg" || extension == "jpg" || extension == "bmp")) {
             QMessageBox::warning(this, "Warning!", "Invalid file extension. Expected JPG or BMP");
-        }
-        QPixmap pixmap (glWidget->size());
-        QRect renderRect(QPoint(0, 0), glWidget->size());
-        pixmap.fill(Qt::white);
-        glWidget->render(&pixmap, QPoint(), renderRect);
-        pixmap.save(filepath + "." + extension, extension.toUtf8().constData());
+      }
+      QImage image = glWidget->grab().toImage();
+      image.save(filepath, extension.toUtf8().constData());
+    }
+}
+
+void MainWindow::on_gif_btn_clicked()
+{
+    if (!glWidget->modelPath.isEmpty()) {
+      timer = new QTimer(this);
+      gif = new QGifImage();
+      counter = 0;
+      timer->start(100);
+      connect(timer, SIGNAL(timeout()), this, SLOT(create_gif()));
+      ui->record_btn->setText("Recording in progress");
+    } else {
+      QMessageBox::warning(this, "Warning!", "File not uploaded");
     }
 }
 
 void MainWindow::create_gif()
 {
-    // QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    // QString filter = "GIF files (*.gif);;All Files (*)";
-    // QString filepath = QFileDialog::getSaveFileName(this, "Enter the name of screenshot", SRCDIR + filename, filter);
-    // QVector<QImage> img;
-    // QVector<QImage>::Iterator it;
-    //     if (!filepath.isEmpty()){
-    //     QGifImage gif(QSize(640, 480));
-    //     gif.setDefaultDelay(100);
-    //     //while(it.hasNext())
-    //     for (it = img.begin(); it != img.end(); it++) {
-    //         gif.addFrame(*it);
-    //     }
-    //     gif.save(filename);
-    //     img.clear();
-    // }
+    gif->setDefaultDelay(100);
+    QImage image = glWidget->grabFramebuffer();
+    QImage resized_image = image.scaled(640, 480, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    gif->addFrame(resized_image);
+    counter++;
+    if (counter == 50) {
+      timer->stop();
+      QString filename = QDateTime::currentDateTime().toString("yyyy-MM-dd hh-mm-ss");
+      gif->save(SRCDIR + filename);
+      QMessageBox::information(this, "Success!", "Gif saved successfully");
+      delete gif;
+      ui->record_btn->setText("Start recording");
+    }
 }
+
+
+void MainWindow::save_settings()
+{
+    settings->setValue("background", glWidget->get_background());
+    //...
+}
+
+void MainWindow::load_settings()
+{
+    QColor bg = settings->value("background").value<QColor>();
+    if (bg.isValid()) glWidget->set_background(bg);
+    else glWidget->set_background(Qt::black);
+    //...
+}
+
