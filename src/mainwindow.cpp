@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(change_background_color()));
 
     connect(ui->vertices_color_btn,SIGNAL(clicked()),this,SLOT(change_vertices_color()));
+    connect(ui->edges_color_btn,SIGNAL(clicked()),this,SLOT(change_edges_color()));
 
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(load_file()));
     connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(take_screenshot()));
@@ -36,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect (ui->model_scale_slider, SIGNAL(valueChanged(int)),ui->widget, SLOT(set_scale(int)));
 
     connect (ui->vertices_display_method_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_vertices_method(int)));
+    connect (ui->edges_type_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_edges_type(int)));
     connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)), ui->widget, SLOT(set_vertices_size(int)));
 }
 
@@ -73,6 +75,12 @@ void MainWindow::change_vertices_color()
 {
     QColor new_color = QColorDialog::getColor(Qt::white, this, tr("Vertices Color:"));
     glWidget->set_vertices_color(new_color);
+}
+
+void MainWindow::change_edges_color()
+{
+    QColor new_color = QColorDialog::getColor(Qt::white, this, tr("Vertices Color:"));
+    glWidget->set_edges_color(new_color);
 }
 
 void MainWindow::take_screenshot()

@@ -25,10 +25,16 @@ public:
   void rotation(double angle, double*, double*);
 
   void set_vertices_color(QColor new_color);
+  void set_edges_color(QColor new_color);
 
   enum VerticesDisplayMethod {
     SQUARE,
     CIRCLE
+  };
+
+  enum EdgesType {
+    SOLID,
+    DASHED
   };
 
 private:
@@ -54,10 +60,11 @@ private:
   double position_x = 0;
   double position_y = 0;
   double position_z = 0;
-  QColor vertices_color;
+  QColor vertices_color = Qt::white;
+  QColor edges_color = Qt::white;
 
   VerticesDisplayMethod vetr_method = VerticesDisplayMethod::SQUARE;
-
+  EdgesType edges_type = EdgesType::SOLID;
 
   const static GLint coords_size = 8;
   // (должен заполнять парсер)
@@ -74,6 +81,7 @@ public slots:
   void rotation_z(double angle);
   void set_vertices_size(int);
   void set_vertices_method(int);
+  void set_edges_type(int);
 
   void set_scale(int size);
 

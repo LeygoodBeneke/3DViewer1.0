@@ -94,12 +94,11 @@ void GLWidget::initializeGL()
     glMatrixMode(GL_MODELVIEW);
 
     glMatrixMode(GL_PROJECTION);
-    glOrtho(-2, 2, -2, 2, -100, 100);
+    glOrtho(-5, 5, -5, 5, -100, 100);
 }
 
 void GLWidget::resizeGL(int width, int height) {
-    glViewport(0, 0, width, height);
-    repaint();
+    glViewport(0, 0, height, width);
 }
 
 void GLWidget::paintGL()
@@ -128,23 +127,29 @@ void GLWidget::paintGL()
     }
     glEnd();
 
+    if (edges_type == EdgesType::DASHED) {
+      glEnable(GL_LINE_STIPPLE);
+    } else {
+      glDisable(GL_LINE_STIPPLE);
+    }
+
+    glLineStipple(3, 0xDDDD);
     glBegin(GL_LINES);
-    glColor3f(0.7, 0.7, 0.7);
+    glColor3f(edges_color.redF(), edges_color.greenF(), edges_color.blueF());
     for (int i = 0; i < 12; i++) {
-        glVertex3f(
-          currentCubeCoords[cubeLines[i][0]][0] * scale + position_x,
-          currentCubeCoords[cubeLines[i][0]][1] * scale + position_y,
-          currentCubeCoords[cubeLines[i][0]][2] * scale + position_z
-        );
-        glVertex3f(
-          currentCubeCoords[cubeLines[i][1]][0] * scale + position_x,
-          currentCubeCoords[cubeLines[i][1]][1] * scale + position_y,
-          currentCubeCoords[cubeLines[i][1]][2] * scale + position_z
-        );
+      glVertex3f(
+        currentCubeCoords[cubeLines[i][0]][0] * scale + position_x,
+        currentCubeCoords[cubeLines[i][0]][1] * scale + position_y,
+        currentCubeCoords[cubeLines[i][0]][2] * scale + position_z
+      );
+      glVertex3f(
+        currentCubeCoords[cubeLines[i][1]][0] * scale + position_x,
+        currentCubeCoords[cubeLines[i][1]][1] * scale + position_y,
+        currentCubeCoords[cubeLines[i][1]][2] * scale + position_z
+      );
     }
     glEnd();
 
-    drawAxis();
 }
 
 void GLWidget::drawAxis()
@@ -173,8 +178,13 @@ void GLWidget::rotation_x(double angle) {
     GLfloat abs_angle = current_angle_x - prev_angle_x;
     for (int i = 0; i < 8; i++) {
         GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][1];
-        currentCubeCoords[i][0] = x * cos(abs_angle) - y * sin(abs_angle);
-        currentCubeCoords[i][1] = x * sin(abs_angle) + y * cos(abs_angle);
+        currentCubeCoords[i][0] = x * cos(-prev_angle_x) - y * sin(-prev_angle_x);
+        currentCubeCoords[i][1] = x * sin(-prev_angle_x) + y * cos(-prev_angle_x);
+    }
+    for (int i = 0; i < 8; i++) {
+        GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][1];
+        currentCubeCoords[i][0] = x * cos(current_angle_x) - y * sin(current_angle_x);
+        currentCubeCoords[i][1] = x * sin(current_angle_x) + y * cos(current_angle_x);
     }
     prev_angle_x = current_angle_x;
     update();
@@ -184,8 +194,13 @@ void GLWidget::rotation_y(double angle) {
     GLfloat abs_angle = current_angle_y - prev_angle_y;
     for (int i = 0; i < 8; i++) {
         GLfloat x = currentCubeCoords[i][1], y = currentCubeCoords[i][2];
-        currentCubeCoords[i][1] = x * cos(abs_angle) - y * sin(abs_angle);
-        currentCubeCoords[i][2] = x * sin(abs_angle) + y * cos(abs_angle);
+        currentCubeCoords[i][1] = x * cos(-prev_angle_y) - y * sin(-prev_angle_y);
+        currentCubeCoords[i][2] = x * sin(-prev_angle_y) + y * cos(-prev_angle_y);
+    }
+    for (int i = 0; i < 8; i++) {
+        GLfloat x = currentCubeCoords[i][1], y = currentCubeCoords[i][2];
+        currentCubeCoords[i][1] = x * cos(current_angle_y) - y * sin(current_angle_y);
+        currentCubeCoords[i][2] = x * sin(current_angle_y) + y * cos(current_angle_y);
     }
     prev_angle_y = current_angle_y;
     update();
@@ -195,12 +210,18 @@ void GLWidget::rotation_z(double angle) {
     GLfloat abs_angle = current_angle_z - prev_angle_z;
     for (int i = 0; i < 8; i++) {
         GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][2];
-        currentCubeCoords[i][0] = x * cos(abs_angle) - y * sin(abs_angle);
-        currentCubeCoords[i][2] = x * sin(abs_angle) + y * cos(abs_angle);
+        currentCubeCoords[i][0] = x * cos(-prev_angle_z) - y * sin(-prev_angle_z);
+        currentCubeCoords[i][2] = x * sin(-prev_angle_z) + y * cos(-prev_angle_z);
+    }
+    for (int i = 0; i < 8; i++) {
+        GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][2];
+        currentCubeCoords[i][0] = x * cos(current_angle_z) - y * sin(current_angle_z);
+        currentCubeCoords[i][2] = x * sin(current_angle_z) + y * cos(current_angle_z);
     }
     prev_angle_z = current_angle_z;
     update();
 }
+// currentCubeCoords - МОЖНО УДАЛИТЬ
 
 void GLWidget::set_vertices_size(int value) {
     vertices_size = value;
@@ -212,8 +233,18 @@ void GLWidget::set_vertices_color(QColor new_color) {
     update();
 }
 
+void GLWidget::set_edges_color(QColor new_color) {
+    edges_color = new_color;
+    update();
+}
+
 void GLWidget::set_vertices_method(int value) {
     vetr_method = VerticesDisplayMethod(value);
+    update();
+}
+
+void GLWidget::set_edges_type(int value) {
+    edges_type = EdgesType(value);
     update();
 }
 
