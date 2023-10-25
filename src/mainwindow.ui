@@ -16,9 +16,6 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -41,10 +38,7 @@
          <bool>true</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">QScrollArea {
-  backgrund-color: rgb(44, 44, 44);
-  color: rgb(44, 44, 44)
-}</string>
+         <string notr="true"/>
         </property>
         <property name="widgetResizable">
          <bool>true</bool>
@@ -54,8 +48,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>298</width>
-           <height>881</height>
+           <width>285</width>
+           <height>945</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
