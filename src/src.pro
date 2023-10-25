@@ -12,11 +12,13 @@ CONFIG += c++17
 SOURCES += \
     glwidget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    parser/parser.c
 
 HEADERS += \
     glwidget.h \
-    mainwindow.h
+    mainwindow.h \
+    parser/parser.h
 
 FORMS += \
     mainwindow.ui

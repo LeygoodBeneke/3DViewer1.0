@@ -117,12 +117,13 @@ void GLWidget::paintGL()
     }
 
     glBegin(GL_POINTS);
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < point_array_len; i++) {
       glColor3f(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
       glVertex3f(
-        currentCubeCoords[i][0] * scale + position_x,
-        currentCubeCoords[i][1] * scale + position_y,
-        currentCubeCoords[i][2] * scale + position_z
+
+        point_array[i].x * scale + position_x,
+        point_array[i].y * scale + position_y,
+        point_array[i].z * scale + position_z
       );
     }
     glEnd();
@@ -136,16 +137,16 @@ void GLWidget::paintGL()
     glLineStipple(3, 0xDDDD);
     glBegin(GL_LINES);
     glColor3f(edges_color.redF(), edges_color.greenF(), edges_color.blueF());
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < line_array_len; i++) {
       glVertex3f(
-        currentCubeCoords[cubeLines[i][0]][0] * scale + position_x,
-        currentCubeCoords[cubeLines[i][0]][1] * scale + position_y,
-        currentCubeCoords[cubeLines[i][0]][2] * scale + position_z
+        point_array[line_array[i].a].x * scale + position_x,
+        point_array[line_array[i].a].y * scale + position_y,
+        point_array[line_array[i].a].z * scale + position_z
       );
       glVertex3f(
-        currentCubeCoords[cubeLines[i][1]][0] * scale + position_x,
-        currentCubeCoords[cubeLines[i][1]][1] * scale + position_y,
-        currentCubeCoords[cubeLines[i][1]][2] * scale + position_z
+        point_array[line_array[i].b].x * scale + position_x,
+        point_array[line_array[i].b].y * scale + position_y,
+        point_array[line_array[i].b].z * scale + position_z
       );
     }
     glEnd();
@@ -175,48 +176,45 @@ void GLWidget::drawAxis()
 
 void GLWidget::rotation_x(double angle) {
     current_angle_x = angle * M_PI / 180.0;
-    GLfloat abs_angle = current_angle_x - prev_angle_x;
-    for (int i = 0; i < 8; i++) {
-        GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][1];
-        currentCubeCoords[i][0] = x * cos(-prev_angle_x) - y * sin(-prev_angle_x);
-        currentCubeCoords[i][1] = x * sin(-prev_angle_x) + y * cos(-prev_angle_x);
+    for (int i = 0; i < point_array_len; i++) {
+        GLfloat x = point_array[i].x, y = point_array[i].y;
+        point_array[i].x = x * cos(-prev_angle_x) - y * sin(-prev_angle_x);
+        point_array[i].y = x * sin(-prev_angle_x) + y * cos(-prev_angle_x);
     }
-    for (int i = 0; i < 8; i++) {
-        GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][1];
-        currentCubeCoords[i][0] = x * cos(current_angle_x) - y * sin(current_angle_x);
-        currentCubeCoords[i][1] = x * sin(current_angle_x) + y * cos(current_angle_x);
+    for (int i = 0; i < point_array_len; i++) {
+        GLfloat x = point_array[i].x, y = point_array[i].y;
+        point_array[i].x = x * cos(current_angle_x) - y * sin(current_angle_x);
+        point_array[i].y = x * sin(current_angle_x) + y * cos(current_angle_x);
     }
     prev_angle_x = current_angle_x;
     update();
 }
 void GLWidget::rotation_y(double angle) {
     current_angle_y = angle * M_PI / 180.0;
-    GLfloat abs_angle = current_angle_y - prev_angle_y;
-    for (int i = 0; i < 8; i++) {
-        GLfloat x = currentCubeCoords[i][1], y = currentCubeCoords[i][2];
-        currentCubeCoords[i][1] = x * cos(-prev_angle_y) - y * sin(-prev_angle_y);
-        currentCubeCoords[i][2] = x * sin(-prev_angle_y) + y * cos(-prev_angle_y);
+    for (int i = 0; i < point_array_len; i++) {
+        GLfloat x = point_array[i].y, y = point_array[i].z;
+        point_array[i].y = x * cos(-prev_angle_y) - y * sin(-prev_angle_y);
+        point_array[i].z = x * sin(-prev_angle_y) + y * cos(-prev_angle_y);
     }
-    for (int i = 0; i < 8; i++) {
-        GLfloat x = currentCubeCoords[i][1], y = currentCubeCoords[i][2];
-        currentCubeCoords[i][1] = x * cos(current_angle_y) - y * sin(current_angle_y);
-        currentCubeCoords[i][2] = x * sin(current_angle_y) + y * cos(current_angle_y);
+    for (int i = 0; i < point_array_len; i++) {
+        GLfloat x = point_array[i].y, y = point_array[i].z;
+        point_array[i].y = x * cos(current_angle_y) - y * sin(current_angle_y);
+        point_array[i].z = x * sin(current_angle_y) + y * cos(current_angle_y);
     }
     prev_angle_y = current_angle_y;
     update();
 }
 void GLWidget::rotation_z(double angle) {
     current_angle_z = angle * M_PI / 180.0;
-    GLfloat abs_angle = current_angle_z - prev_angle_z;
-    for (int i = 0; i < 8; i++) {
-        GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][2];
-        currentCubeCoords[i][0] = x * cos(-prev_angle_z) - y * sin(-prev_angle_z);
-        currentCubeCoords[i][2] = x * sin(-prev_angle_z) + y * cos(-prev_angle_z);
+    for (int i = 0; i < point_array_len; i++) {
+        GLfloat x = point_array[i].x, y = point_array[i].z;
+        point_array[i].x = x * cos(-prev_angle_z) - y * sin(-prev_angle_z);
+        point_array[i].z = x * sin(-prev_angle_z) + y * cos(-prev_angle_z);
     }
-    for (int i = 0; i < 8; i++) {
-        GLfloat x = currentCubeCoords[i][0], y = currentCubeCoords[i][2];
-        currentCubeCoords[i][0] = x * cos(current_angle_z) - y * sin(current_angle_z);
-        currentCubeCoords[i][2] = x * sin(current_angle_z) + y * cos(current_angle_z);
+    for (int i = 0; i < point_array_len; i++) {
+        GLfloat x = point_array[i].x, y = point_array[i].z;
+        point_array[i].x = x * cos(current_angle_z) - y * sin(current_angle_z);
+        point_array[i].z = x * sin(current_angle_z) + y * cos(current_angle_z);
     }
     prev_angle_z = current_angle_z;
     update();
@@ -265,5 +263,17 @@ void GLWidget::set_position_z(double z) {
 void GLWidget::set_scale(int size) {
     scale = size / 100.0;
     update();
+}
+
+void GLWidget::initialize_model() {
+    std:: cout << point_array_len << ' ' << modelPath.toStdString().c_str() << '\n';
+    parser(modelPath.toStdString().c_str(), &point_array, &point_array_len, &line_array, &line_array_len);
+    for (int i = 0; i < point_array_len; i++)
+        std:: cout << point_array[i].x << ' ' << point_array[i].y << ' ' << point_array[i].z << '\n';
+
+
+    for (int i = 0; i < line_array_len; i++)
+      std:: cout << line_array[i].a << ' ' << line_array[i].b << '\n';
+    //update();
 }
 

@@ -54,6 +54,7 @@ void MainWindow::on_load_file_btn_clicked()
             glWidget->modelPath = path;
             QString filename = fileInfo.fileName();
             ui->Filename_Label->setText(filename);
+            glWidget->initialize_model();
         }
     }
 }

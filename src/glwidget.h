@@ -4,7 +4,9 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <GL/glu.h>
-
+extern "C" {
+#include "parser/parser.h"
+};
 
 class GLWidget: public QOpenGLWidget {
   Q_OBJECT
@@ -26,6 +28,8 @@ public:
 
   void set_vertices_color(QColor new_color);
   void set_edges_color(QColor new_color);
+
+  void initialize_model();
 
   enum VerticesDisplayMethod {
     SQUARE,
@@ -63,14 +67,19 @@ private:
   QColor vertices_color = Qt::white;
   QColor edges_color = Qt::white;
 
+  point *point_array;
+  int point_array_len = 0;
+  line *line_array;
+  int line_array_len = 0;
+
   VerticesDisplayMethod vetr_method = VerticesDisplayMethod::SQUARE;
   EdgesType edges_type = EdgesType::SOLID;
 
-  const static GLint coords_size = 8;
+  const static GLint coords_size = 10000;
   // (должен заполнять парсер)
   GLfloat cubeCoords[coords_size][3];
   GLfloat currentCubeCoords[coords_size][3];
-  GLint cubeLines[12][2];
+  GLint cubeLines[1000][2];
 
 public slots:
   void set_position_x(double);
