@@ -224,6 +224,8 @@ void parser(char *file_path, point **points, int *points_len, line **lines, int 
     *lines = malloc(1 * sizeof (surface));
     *lines = get_lines(fp, surf_len);
 
+    if(fp)
+        fclose(fp);
 }
 
 void number_of_points_and_surfaces(int* number_points, int* number_surfaces, FILE* fp) {
@@ -283,6 +285,11 @@ line *get_lines(FILE *fp, int *number_surfaces) {
     int i = 0;
 
     read = getline(&str, &len, fp);
+
+    while(!is_surface(str)) {
+        read = getline(&str, &len, fp);
+    }
+
     int number_of_coord = number_of_coordinates(str); //TODO поменять как нибудь название функции
 
     line *lines = malloc(*number_surfaces * number_of_coord * sizeof(line)); //TODO памяти выделяется больше чем надо ПОФИКСИТЬ!!!!
@@ -293,7 +300,6 @@ line *get_lines(FILE *fp, int *number_surfaces) {
         if (read != -1) {
             if(is_surface(str)) {
                 create_line(lines, str, &i);
-//                i++;
             }
         } else {
             true = 0;
@@ -309,6 +315,7 @@ line *get_lines(FILE *fp, int *number_surfaces) {
 }
 
 void create_line(line *lines, char *str, int *i) {
+    int trigger = 1;
 
     int str_len = strlen(str);
     char* tmp_line = malloc(str_len * sizeof(char));
@@ -328,11 +335,12 @@ void create_line(line *lines, char *str, int *i) {
     //TODO исправить оишбку с точность при приведении к int
     //TODO заменить функцию atoi на strtol
     while(token != NULL) {
-        if (*i == 3) {
+        if ( trigger == 4) {
             lines[*i].a = a;
             lines[*i].b = first_point;
 
             *i += 1;
+            trigger = 1;
         } else {
             token = strtok(NULL, " /");
             if (token != NULL) {
@@ -342,6 +350,7 @@ void create_line(line *lines, char *str, int *i) {
                 lines[*i].b = b;
 
                 *i += 1;
+                trigger += 1;
 
                 strtok(NULL, " /");
                 strtok(NULL, " /");
@@ -351,7 +360,7 @@ void create_line(line *lines, char *str, int *i) {
         }
     }
 
-//        free(tmp_line); //TODO какая-то неведомая херня, теряется указатель
+        free(tmp_line); //TODO какая-то неведомая херня, теряется указатель
 }
 
 int is_surface(char* str) {
@@ -363,7 +372,7 @@ int is_surface(char* str) {
 
     return is_surf;
 }
-
+//TODO эта вызывается не только для координат и плоскостей
 int number_of_coordinates(char *line) {
     int str_len = strlen(line);
     char* tmp_line = malloc(str_len * sizeof(char));
@@ -373,13 +382,11 @@ int number_of_coordinates(char *line) {
     char* token = strtok(tmp_line, " ");
     int i = 0;
 
-    while (token != NULL) {
-        token = strtok(NULL, " ");
+    while ((token = strtok(NULL, " ")) != NULL) {
         i++;
     }
 
     free(tmp_line);
 
-    //TODO исправить ошибку с подсчетом количества координат
-    return i-1;
+    return i;
 }
