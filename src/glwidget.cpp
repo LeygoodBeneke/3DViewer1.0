@@ -3,7 +3,7 @@
 
 GLWidget::GLWidget(QWidget* parent)
     : QOpenGLWidget(parent),
-      //background(QColor(Qt::black)),
+      background(QColor(Qt::black)),
       vertices_color(QColor(Qt::white)) {}
 
 GLWidget::~GLWidget()
@@ -92,6 +92,7 @@ void GLWidget::initializeGL()
 
     // Устанавливаем размер окна
     glMatrixMode(GL_MODELVIEW);
+    glLineWidth(line_width);
 
     glMatrixMode(GL_PROJECTION);
     glOrtho(-5, 5, -5, 5, -100, 100);
@@ -106,7 +107,6 @@ void GLWidget::paintGL()
     glClearColor(background.redF(), background.greenF(), background.blueF(), 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
     glEnable( GL_PROGRAM_POINT_SIZE );
     glPointSize(vertices_size);
 
@@ -117,6 +117,7 @@ void GLWidget::paintGL()
     }
 
     glBegin(GL_POINTS);
+
     for (int i = 0; i < 8; i++) {
       glColor3f(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
       glVertex3f(
@@ -132,9 +133,11 @@ void GLWidget::paintGL()
     } else {
       glDisable(GL_LINE_STIPPLE);
     }
-
     glLineStipple(3, 0xDDDD);
+
+    glLineWidth(line_width);
     glBegin(GL_LINES);
+
     glColor3f(edges_color.redF(), edges_color.greenF(), edges_color.blueF());
     for (int i = 0; i < 12; i++) {
       glVertex3f(
@@ -245,6 +248,12 @@ void GLWidget::set_vertices_method(int value) {
 
 void GLWidget::set_edges_type(int value) {
     edges_type = EdgesType(value);
+    update();
+}
+
+void GLWidget::set_line_width(int value)
+{
+    line_width = value;
     update();
 }
 

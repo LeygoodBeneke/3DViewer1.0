@@ -12,7 +12,7 @@
 #include <QImage>
 #include <QTimer>
 #include <QSettings>
-
+#include <QDebug>
 #include "QtGifImage/src/gifimage/qgifimage.h"
 
 #include "glwidget.h"

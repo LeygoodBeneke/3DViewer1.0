@@ -16,25 +16,19 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(on_load_file_btn_clicked()));
     connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(on_snap_btn_clicked()));
     connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(on_gif_btn_clicked()));
-    //connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(create_gif()));
 
-    //connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(rotation_x()));
+    connect (ui->edges_thikness_slider, SIGNAL(valueChanged(int)), glWidget, SLOT(set_line_width(int)));
 
-
-    //connect(ui->rotation_x_spinbox, SIGNAL(valueChanged(int)), this, SLOT(set_rotation_x(int)));
-
-    connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_x(double)));
-    connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_y(double)));
-    connect (ui->rotation_z_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_z(double)));
-    connect (ui->position_x_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_x(double)));
-    connect (ui->position_y_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_y(double)));
-    connect (ui->position_z_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(set_position_z(double)));
-
-    connect (ui->model_scale_slider, SIGNAL(valueChanged(int)),ui->widget, SLOT(set_scale(int)));
-
-    connect (ui->vertices_display_method_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_vertices_method(int)));
-    connect (ui->edges_type_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_edges_type(int)));
-    connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)), ui->widget, SLOT(set_vertices_size(int)));
+    connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(rotation_x(double)));
+    connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(rotation_y(double)));
+    connect (ui->rotation_z_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(rotation_z(double)));
+    connect (ui->position_x_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(set_position_x(double)));
+    connect (ui->position_y_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(set_position_y(double)));
+    connect (ui->position_z_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(set_position_z(double)));
+    connect (ui->model_scale_slider, SIGNAL(valueChanged(int)), glWidget, SLOT(set_scale(int)));
+    connect (ui->vertices_display_method_combobox, SIGNAL(currentIndexChanged(int)), glWidget, SLOT(set_vertices_method(int)));
+    connect (ui->edges_type_combobox, SIGNAL(currentIndexChanged(int)), glWidget, SLOT(set_edges_type(int)));
+    connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)), glWidget, SLOT(set_vertices_size(int)));
 }
 
 MainWindow::~MainWindow()
@@ -132,14 +126,24 @@ void MainWindow::create_gif()
 void MainWindow::save_settings()
 {
     settings->setValue("background", glWidget->get_background());
-    //...
+    settings->setValue("width", glWidget->get_width());
+    settings->setValue("point", glWidget->get_edges_type());
+    settings->setValue("edges_color", glWidget->get_edges_color());
 }
 
 void MainWindow::load_settings()
 {
-    QColor bg = settings->value("background").value<QColor>();
-    if (bg.isValid()) glWidget->set_background(bg);
-    else glWidget->set_background(Qt::black);
-    //...
+//    if (settings->value("background")) {
+//    glWidget->set_background(settings->value("background").value<QColor>());
+//    }
+//    if (settings->value("width").value<float>()) {
+//    glWidget->set_line_width(settings->value("width").value<float>());
+//    }
+//    if (settings->value("point")) {
+//    glWidget->set_edges_type(settings->value("point"));
+//    }
+//    if (settings->value("edges_color")) {
+//    glWidget->set_edges_color(settings->value("edges_color").value<QColor>());
+//    }
 }
 
