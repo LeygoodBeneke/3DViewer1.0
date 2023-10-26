@@ -194,6 +194,23 @@ void GLWidget::set_scale(int size) {
 
 void GLWidget::initialize_model() {
     parser((char *)modelPath.toStdString().c_str(), &point_array, &point_array_len, &line_array, &line_array_len);
+
+    point gravity_center = {.x = 0, .y = 0, .z = 0};
+
+    for (int i =0; i < point_array_len; i++) {
+        gravity_center.x += point_array[i].x;
+        gravity_center.y += point_array[i].y;
+        gravity_center.z += point_array[i].z;
+    }
+    gravity_center.x /= point_array_len;
+    gravity_center.y /= point_array_len;
+    gravity_center.z /= point_array_len;
+
+    for (int i =0; i < point_array_len; i++) {
+        point_array[i].x -= gravity_center.x;
+        point_array[i].y -= gravity_center.y;
+        point_array[i].z -= gravity_center.z;
+    }
     update();
 }
 
