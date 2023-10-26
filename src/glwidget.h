@@ -41,6 +41,11 @@ public:
     DASHED
   };
 
+  enum ProjectionType {
+    PARALLEL,
+    CENTRAL
+  };
+
   int get_edges_count() { return line_array_len; }
   int get_points_count() { return point_array_len; }
 
@@ -77,6 +82,7 @@ private:
 
   VerticesDisplayMethod vetr_method = VerticesDisplayMethod::SQUARE;
   EdgesType edges_type = EdgesType::SOLID;
+  ProjectionType projection_type = ProjectionType::PARALLEL;
 
 public slots:
   void set_position_x(double);
@@ -89,5 +95,6 @@ public slots:
   void set_vertices_method(int);
   void set_edges_type(int);
   void set_scale(int size);
+  void set_projection_type(int);
 };
 #endif // GLWIDGET_H

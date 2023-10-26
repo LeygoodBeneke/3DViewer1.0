@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect (ui->vertices_display_method_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_vertices_method(int)));
     connect (ui->edges_type_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_edges_type(int)));
+    connect (ui->projection_type_combobox, SIGNAL(currentIndexChanged(int)), ui->widget, SLOT(set_projection_type(int)));
     connect (ui->vertices_size_slider, SIGNAL(valueChanged(int)), ui->widget, SLOT(set_vertices_size(int)));
 }
 

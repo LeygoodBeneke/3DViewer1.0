@@ -14,13 +14,8 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
-    // Инициализируем OpenGL
-
-    // Устанавливаем размер окна
-    glMatrixMode(GL_MODELVIEW);
-
     glMatrixMode(GL_PROJECTION);
-    glOrtho(-5, 5, -5, 5, -100, 100);
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void GLWidget::resizeGL(int width, int height) {
@@ -31,6 +26,13 @@ void GLWidget::paintGL()
 {
     glClearColor(background.redF(), background.greenF(), background.blueF(), 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glLoadIdentity();
+    if (projection_type == ProjectionType::CENTRAL) {
+      gluPerspective(70.0, 1.5, 0.1, 50);
+    } else
+      glOrtho(-5, 5, -5, 5, -100, 100);
+    gluLookAt(2, 2, 4, 0, 0, 0, 0, 1, 0);
 
 
     glEnable( GL_PROGRAM_POINT_SIZE );
@@ -146,7 +148,6 @@ void GLWidget::rotation_z(double angle) {
     prev_angle_z = current_angle_z;
     update();
 }
-// currentCubeCoords - МОЖНО УДАЛИТЬ
 
 void GLWidget::set_vertices_size(int value) {
     vertices_size = value;
@@ -189,6 +190,11 @@ void GLWidget::set_position_z(double z) {
 }
 void GLWidget::set_scale(int size) {
     scale = size / 100.0;
+    update();
+}
+
+void GLWidget::set_projection_type(int type) {
+    projection_type = ProjectionType(type);
     update();
 }
 
