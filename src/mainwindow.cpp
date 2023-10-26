@@ -12,13 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     settings = new QSettings(this);
     load_settings();
 
-    connect(ui->background_color_btn,SIGNAL(clicked()),this,SLOT(on_bg_btn_clicked()));
-    connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(on_load_file_btn_clicked()));
-    connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(on_snap_btn_clicked()));
-    connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(on_gif_btn_clicked()));
-
+    connect(ui->background_color_btn, SIGNAL(clicked()), this, SLOT(on_bg_btn_clicked()));
+    connect(ui->load_from_file_btn, SIGNAL(clicked()), this, SLOT(on_load_file_btn_clicked()));
+    connect(ui->screenshot_btn, SIGNAL(clicked()),this,SLOT(on_snap_btn_clicked()));
+    connect(ui->record_btn, SIGNAL(clicked()), this, SLOT(on_gif_btn_clicked()));
+    connect(ui->vertices_color_btn, SIGNAL(clicked()), this, SLOT(change_vertices_color()));
+    connect(ui->edges_color_btn, SIGNAL(clicked()), this, SLOT(change_edges_color()));
+    connect(ui->reset_model_settings_btn, SIGNAL(clicked()), this, SLOT(reset_settings()));
     connect (ui->edges_thikness_slider, SIGNAL(valueChanged(int)), glWidget, SLOT(set_line_width(int)));
-
     connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(rotation_x(double)));
     connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(rotation_y(double)));
     connect (ui->rotation_z_spinbox, SIGNAL(valueChanged(double)), glWidget, SLOT(rotation_z(double)));
@@ -127,23 +128,55 @@ void MainWindow::save_settings()
 {
     settings->setValue("background", glWidget->get_background());
     settings->setValue("width", glWidget->get_width());
-    settings->setValue("point", glWidget->get_edges_type());
+    settings->setValue("edges_t", glWidget->get_edges_type());
     settings->setValue("edges_color", glWidget->get_edges_color());
+    settings->setValue("vetr_method", glWidget->get_vetr_method());
+    settings->setValue("vertices_size", glWidget->get_vertices_size());
+    settings->setValue("vertices_color", glWidget->get_vertices_color());
 }
+
 
 void MainWindow::load_settings()
 {
-//    if (settings->value("background")) {
-//    glWidget->set_background(settings->value("background").value<QColor>());
-//    }
-//    if (settings->value("width").value<float>()) {
-//    glWidget->set_line_width(settings->value("width").value<float>());
-//    }
-//    if (settings->value("point")) {
-//    glWidget->set_edges_type(settings->value("point"));
-//    }
-//    if (settings->value("edges_color")) {
-//    glWidget->set_edges_color(settings->value("edges_color").value<QColor>());
-//    }
+    QVariant bg = settings->value("background");
+    QVariant width = settings->value("width");
+    QVariant edges_t = settings->value("edges_t");
+    QVariant edges_color = settings->value("edges_color");
+    QVariant vetr_method = settings->value("vetr_method");
+    QVariant vertices_size = settings->value("vertices_size");
+    QVariant vertices_color = settings->value("vertices_color");
+
+    if (bg.isValid()) {
+        glWidget->set_background(bg.value<QColor>());
+    }
+    if (width.isValid()) {
+        glWidget->set_line_width(width.value<float>());
+    }
+    if (edges_t.isValid()) {
+        glWidget->set_edges_type(edges_t.value<int>());
+    }
+    if (edges_color.isValid()) {
+        glWidget->set_edges_color(edges_color.value<QColor>());
+    }
+    if (vetr_method.isValid()) {
+        glWidget->set_vertices_method(vetr_method.value<int>());
+    }
+    if (vertices_size.isValid()) {
+        glWidget->set_vertices_size(vertices_size.value<float>());
+    }
+    if (vertices_color.isValid()) {
+        glWidget->set_vertices_color(vertices_color.value<QColor>());
+    }
 }
 
+void MainWindow::reset_settings()
+{
+    glWidget->set_background(QColor(Qt::black));
+    glWidget->set_line_width(1.0);
+    glWidget->set_edges_type(1);
+    glWidget->set_edges_color(QColor(Qt::white));
+    glWidget->set_vertices_method(1);
+    glWidget->set_vertices_size(5.0);
+    glWidget->set_vertices_color(QColor(Qt::white));
+    glWidget->update();
+}

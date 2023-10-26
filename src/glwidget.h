@@ -29,6 +29,9 @@ public:
   GLfloat get_width() { return line_width; }
   EdgesType get_edges_type() { return edges_type; }
   QColor get_edges_color() { return edges_color; }
+  VerticesDisplayMethod get_vetr_method() { return vetr_method; }
+  GLfloat get_vertices_size() { return vertices_size; }
+  QColor get_vertices_color() { return vertices_color; }
 
   void set_background(QColor color) { background = color; }
 
@@ -87,7 +90,6 @@ public slots:
   void set_vertices_method(int);
   void set_edges_type(int);
   void set_line_width(int);
-
   void set_scale(int size);
 
 
