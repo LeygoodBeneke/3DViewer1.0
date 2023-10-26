@@ -16,12 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->load_from_file_btn,SIGNAL(clicked()),this,SLOT(on_load_file_btn_clicked()));
     connect(ui->screenshot_btn,SIGNAL(clicked()),this,SLOT(on_snap_btn_clicked()));
     connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(on_gif_btn_clicked()));
-    //connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(create_gif()));
+    connect(ui->vertices_color_btn,SIGNAL(clicked()),this,SLOT(change_vertices_color()));
+    connect(ui->edges_color_btn,SIGNAL(clicked()),this,SLOT(change_edges_color()));
 
-    //connect(ui->record_btn,SIGNAL(clicked()),this,SLOT(rotation_x()));
-
-
-    //connect(ui->rotation_x_spinbox, SIGNAL(valueChanged(int)), this, SLOT(set_rotation_x(int)));
 
     connect (ui->rotation_x_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_x(double)));
     connect (ui->rotation_y_spinbox, SIGNAL(valueChanged(double)),ui->widget, SLOT(rotation_y(double)));
@@ -55,6 +52,9 @@ void MainWindow::on_load_file_btn_clicked()
             QString filename = fileInfo.fileName();
             ui->Filename_Label->setText(filename);
             glWidget->initialize_model();
+
+            ui->edges_count_label->setText(QString::number(glWidget->get_edges_count()));
+            ui->vertices_count_label->setText(QString::number(glWidget->get_points_count()));
         }
     }
 }

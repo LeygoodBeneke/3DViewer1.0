@@ -41,6 +41,9 @@ public:
     DASHED
   };
 
+  int get_edges_count() { return line_array_len; }
+  int get_points_count() { return point_array_len; }
+
 private:
   void drawStar(float fX, float fY);
   void drawStars();
@@ -75,12 +78,6 @@ private:
   VerticesDisplayMethod vetr_method = VerticesDisplayMethod::SQUARE;
   EdgesType edges_type = EdgesType::SOLID;
 
-  const static GLint coords_size = 10000;
-  // (должен заполнять парсер)
-  GLfloat cubeCoords[coords_size][3];
-  GLfloat currentCubeCoords[coords_size][3];
-  GLint cubeLines[1000][2];
-
 public slots:
   void set_position_x(double);
   void set_position_y(double);
@@ -91,9 +88,6 @@ public slots:
   void set_vertices_size(int);
   void set_vertices_method(int);
   void set_edges_type(int);
-
   void set_scale(int size);
-
-
 };
 #endif // GLWIDGET_H

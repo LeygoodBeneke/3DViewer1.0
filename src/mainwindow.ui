@@ -48,8 +48,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>285</width>
-           <height>945</height>
+           <width>298</width>
+           <height>881</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -769,7 +769,7 @@
            </widget>
           </item>
           <item alignment="Qt::AlignLeft">
-           <widget class="QLabel" name="label_114">
+           <widget class="QLabel" name="edges_count_label">
             <property name="maximumSize">
              <size>
               <width>100</width>
@@ -805,7 +805,7 @@
            </widget>
           </item>
           <item alignment="Qt::AlignLeft">
-           <widget class="QLabel" name="label_116">
+           <widget class="QLabel" name="vertices_count_label">
             <property name="maximumSize">
              <size>
               <width>100</width>

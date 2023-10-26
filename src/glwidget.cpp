@@ -8,86 +8,12 @@ GLWidget::GLWidget(QWidget* parent)
 
 GLWidget::~GLWidget()
 {
-   //destructor code
+  free(point_array);
+  free(line_array);
 }
 
 void GLWidget::initializeGL()
 {
-    cubeCoords[0][0] = -0.3;
-    cubeCoords[0][1] = -2;
-    cubeCoords[0][2] = -0.3;
-
-    cubeCoords[1][0] = -0.3;
-    cubeCoords[1][1] = -2;
-    cubeCoords[1][2] = 0.3;
-
-    cubeCoords[2][0] = 0.3;
-    cubeCoords[2][1] = -0.3;
-    cubeCoords[2][2] = 0.3;
-
-    cubeCoords[3][0] = 0.3;
-    cubeCoords[3][1] = -0.3;
-    cubeCoords[3][2] = -0.3;
-
-    cubeCoords[4][0] = -0.3;
-    cubeCoords[4][1] = 0.3;
-    cubeCoords[4][2] = -0.3;
-
-    cubeCoords[5][0] = -0.3;
-    cubeCoords[5][1] = 0.3;
-    cubeCoords[5][2] = 0.3;
-
-    cubeCoords[6][0] = 0.3;
-    cubeCoords[6][1] = 0.3;
-    cubeCoords[6][2] = 0.3;
-
-    cubeCoords[7][0] = 0.3;
-    cubeCoords[7][1] = 0.3;
-    cubeCoords[7][2] = -0.3;
-
-
-    cubeLines[0][0] = 0;
-    cubeLines[0][1] = 1;
-
-    cubeLines[1][0] = 1;
-    cubeLines[1][1] = 2;
-
-    cubeLines[2][0] = 2;
-    cubeLines[2][1] = 3;
-
-    cubeLines[3][0] = 3;
-    cubeLines[3][1] = 0;
-
-    cubeLines[4][0] = 4;
-    cubeLines[4][1] = 5;
-
-    cubeLines[5][0] = 5;
-    cubeLines[5][1] = 6;
-
-    cubeLines[6][0] = 6;
-    cubeLines[6][1] = 7;
-
-    cubeLines[7][0] = 7;
-    cubeLines[7][1] = 4;
-
-    cubeLines[8][0] = 0;
-    cubeLines[8][1] = 4;
-
-    cubeLines[9][0] = 1;
-    cubeLines[9][1] = 5;
-
-    cubeLines[10][0] = 2;
-    cubeLines[10][1] = 6;
-
-    cubeLines[11][0] = 3;
-    cubeLines[11][1] = 7;
-
-    for (int i = 0; i < 8; i++) {
-      currentCubeCoords[i][0] = cubeCoords[i][0];
-      currentCubeCoords[i][1] = cubeCoords[i][1];
-      currentCubeCoords[i][2] = cubeCoords[i][2];
-    }
-
     // Инициализируем OpenGL
 
     // Устанавливаем размер окна
@@ -139,17 +65,18 @@ void GLWidget::paintGL()
     glColor3f(edges_color.redF(), edges_color.greenF(), edges_color.blueF());
     for (int i = 0; i < line_array_len; i++) {
       glVertex3f(
-        point_array[line_array[i].a].x * scale + position_x,
-        point_array[line_array[i].a].y * scale + position_y,
-        point_array[line_array[i].a].z * scale + position_z
+        point_array[line_array[i].a - 1].x * scale + position_x,
+        point_array[line_array[i].a - 1].y * scale + position_y,
+        point_array[line_array[i].a - 1].z * scale + position_z
       );
       glVertex3f(
-        point_array[line_array[i].b].x * scale + position_x,
-        point_array[line_array[i].b].y * scale + position_y,
-        point_array[line_array[i].b].z * scale + position_z
+        point_array[line_array[i].b - 1].x * scale + position_x,
+        point_array[line_array[i].b - 1].y * scale + position_y,
+        point_array[line_array[i].b - 1].z * scale + position_z
       );
     }
     glEnd();
+    drawAxis();
 
 }
 
@@ -266,14 +193,7 @@ void GLWidget::set_scale(int size) {
 }
 
 void GLWidget::initialize_model() {
-    std:: cout << point_array_len << ' ' << modelPath.toStdString().c_str() << '\n';
-    parser(modelPath.toStdString().c_str(), &point_array, &point_array_len, &line_array, &line_array_len);
-    for (int i = 0; i < point_array_len; i++)
-        std:: cout << point_array[i].x << ' ' << point_array[i].y << ' ' << point_array[i].z << '\n';
-
-
-    for (int i = 0; i < line_array_len; i++)
-      std:: cout << line_array[i].a << ' ' << line_array[i].b << '\n';
-    //update();
+    parser((char *)modelPath.toStdString().c_str(), &point_array, &point_array_len, &line_array, &line_array_len);
+    update();
 }
 
