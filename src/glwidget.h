@@ -15,7 +15,8 @@ public:
 
   enum VerticesDisplayMethod {
       SQUARE,
-      CIRCLE
+      CIRCLE,
+      BLANK
   };
 
   enum EdgesType {

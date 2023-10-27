@@ -417,6 +417,11 @@
               <string>Circle</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>Blank</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>

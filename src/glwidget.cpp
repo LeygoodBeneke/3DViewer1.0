@@ -106,18 +106,22 @@ void GLWidget::paintGL()
 {
     glClearColor(background.redF(), background.greenF(), background.blueF(), 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     glEnable( GL_PROGRAM_POINT_SIZE );
-    glPointSize(vertices_size);
 
-    if (vetr_method == VerticesDisplayMethod::CIRCLE)
+    if (vetr_method == VerticesDisplayMethod::CIRCLE) {
       glEnable(GL_POINT_SMOOTH);
+      glPointSize(vertices_size);
+    }
+    else if (vetr_method == VerticesDisplayMethod::BLANK) {
+      glPointSize(1);
+      glDisable(GL_POINT_SMOOTH);
+    }
     else {
+      glPointSize(vertices_size);
       glDisable(GL_POINT_SMOOTH);
     }
 
     glBegin(GL_POINTS);
-
     for (int i = 0; i < 8; i++) {
       glColor3f(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
       glVertex3f(
