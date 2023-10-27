@@ -33,6 +33,7 @@ public:
   VerticesDisplayMethod get_vetr_method() { return vetr_method; }
   GLfloat get_vertices_size() { return vertices_size; }
   QColor get_vertices_color() { return vertices_color; }
+  //get_projection_type
 
   void set_background(QColor color) { background = color; }
 

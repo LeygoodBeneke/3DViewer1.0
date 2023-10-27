@@ -133,6 +133,7 @@ void MainWindow::save_settings()
     settings->setValue("vetr_method", glWidget->get_vetr_method());
     settings->setValue("vertices_size", glWidget->get_vertices_size());
     settings->setValue("vertices_color", glWidget->get_vertices_color());
+    //settings->setValue("projection_type", glWidget->get_projection_type());
 }
 
 
@@ -145,38 +146,51 @@ void MainWindow::load_settings()
     QVariant vetr_method = settings->value("vetr_method");
     QVariant vertices_size = settings->value("vertices_size");
     QVariant vertices_color = settings->value("vertices_color");
+    //QVariant vertices_color = settings->value("vertices_color");
 
     if (bg.isValid()) {
         glWidget->set_background(bg.value<QColor>());
     }
     if (width.isValid()) {
         glWidget->set_line_width(width.value<float>());
+        ui->edges_thikness_slider->setValue(width.value<float>());
     }
     if (edges_t.isValid()) {
         glWidget->set_edges_type(edges_t.value<int>());
+        ui->edges_type_combobox->setCurrentIndex(edges_t.value<int>());
     }
     if (edges_color.isValid()) {
         glWidget->set_edges_color(edges_color.value<QColor>());
     }
     if (vetr_method.isValid()) {
         glWidget->set_vertices_method(vetr_method.value<int>());
+        ui->vertices_display_method_combobox->setCurrentIndex(vetr_method.value<int>());
     }
     if (vertices_size.isValid()) {
         glWidget->set_vertices_size(vertices_size.value<float>());
+        ui->vertices_size_slider->setValue(vertices_size.value<float>());
     }
     if (vertices_color.isValid()) {
         glWidget->set_vertices_color(vertices_color.value<QColor>());
     }
+//    if (vertices_color.isValid()) {
+//        glWidget->glWidget->set_projection_type("vertices_color".value<int>());
+//    }
 }
 
 void MainWindow::reset_settings()
 {
     glWidget->set_background(QColor(Qt::black));
-    glWidget->set_line_width(1.0);
-    glWidget->set_edges_type(1);
+    glWidget->set_line_width(1.0f);
+    ui->edges_thikness_slider->setValue(1.0f);
+    glWidget->set_edges_type(0);
+    ui->edges_type_combobox->setCurrentIndex(0);
     glWidget->set_edges_color(QColor(Qt::white));
     glWidget->set_vertices_method(1);
+    ui->vertices_display_method_combobox->setCurrentIndex(1);
     glWidget->set_vertices_size(5.0);
+    ui->vertices_size_slider->setValue(0);
     glWidget->set_vertices_color(QColor(Qt::white));
+    //glWidget->set_projection_type(1);
     glWidget->update();
 }
