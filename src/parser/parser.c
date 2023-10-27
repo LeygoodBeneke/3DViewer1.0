@@ -9,7 +9,7 @@ void parser(char *file_path, point **points, int *points_len, line **lines, int 
     int true = 1;
     char *line = NULL; //нужно чистить
     size_t len = 0;
-    ssize_t read;
+    long read = 0;
 
     FILE *fp = fopen(file_path, "r");
     if (fp == NULL) {
@@ -19,7 +19,7 @@ void parser(char *file_path, point **points, int *points_len, line **lines, int 
     number_of_points_and_surfaces(points_len, surf_len, fp);
     *points = malloc(*points_len * sizeof(point)); // нужно чистить
 
-    while (true && error == 0) {
+    while (read != -1 && error == 0) {
         read = getline(&line, &len, fp);
 
         if (read != -1) {
@@ -38,6 +38,7 @@ void parser(char *file_path, point **points, int *points_len, line **lines, int 
         free(line);
     }
 
+    fseek(fp, 0, SEEK_SET);
 
     *lines = get_lines(fp, surf_len);
 
@@ -105,34 +106,39 @@ void create_point(point *p, char *line) {
 }
 
 line *get_lines(FILE *fp, int *number_surfaces) {
-    size_t len = 0;
     ssize_t read = 0;
-    char *str = NULL;
-    int true = 1;
-    int i = 0;
+    line *lines;
 
-    read = getline(&str, &len, fp);
+    while(read != -1) {
+        size_t len = 0;
 
-    while (!is_surface(str)) {
+        char *str = NULL;
+        int true = 1;
+        int i = 0;
+
         read = getline(&str, &len, fp);
-    }
 
-    line *lines = malloc(*number_surfaces * sizeof(line));
-
-    while (true) {
-        if (read != -1) {
-            if (is_surface(str)) {
-                create_line(lines, str, &i);
-            }
-        } else {
-            true = 0;
+        while (!is_surface(str)) {
+            read = getline(&str, &len, fp);
         }
 
-        read = getline(&str, &len, fp);
-    }
+        lines = malloc(*number_surfaces * sizeof(line));
 
-    if (str) {
-        free(str);
+        while (true) {
+            if (read != -1) {
+                if (is_surface(str)) {
+                    create_line(lines, str, &i);
+                }
+            } else {
+                true = 0;
+            }
+
+            read = getline(&str, &len, fp);
+        }
+
+        if (str) {
+            free(str);
+        }
     }
     return lines;
 }
