@@ -48,8 +48,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>285</width>
-           <height>945</height>
+           <width>298</width>
+           <height>881</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -80,7 +80,6 @@
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -107,10 +106,13 @@
                </size>
               </property>
               <property name="minimum">
-               <double>-360.000000000000000</double>
+               <double>0.000000000000000</double>
               </property>
               <property name="maximum">
                <double>360.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>5.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -134,13 +136,13 @@
                </size>
               </property>
               <property name="minimum">
-               <double>-100.000000000000000</double>
+               <double>0.000000000000000</double>
               </property>
               <property name="maximum">
-               <double>100.000000000000000</double>
+               <double>360.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>10.000000000000000</double>
+               <double>5.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -164,10 +166,13 @@
                </size>
               </property>
               <property name="minimum">
-               <double>-360.000000000000000</double>
+               <double>0.000000000000000</double>
               </property>
               <property name="maximum">
                <double>360.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>5.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -178,7 +183,6 @@
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <italic>false</italic>
               <bold>true</bold>
              </font>
@@ -209,13 +213,13 @@
                </size>
               </property>
               <property name="minimum">
-               <double>-100.000000000000000</double>
+               <double>-10.000000000000000</double>
               </property>
               <property name="maximum">
-               <double>100.000000000000000</double>
+               <double>10.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>10.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
              </widget>
             </item>
@@ -239,10 +243,13 @@
                </size>
               </property>
               <property name="minimum">
-               <double>-360.000000000000000</double>
+               <double>-10.000000000000000</double>
               </property>
               <property name="maximum">
-               <double>360.000000000000000</double>
+               <double>10.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.100000000000000</double>
               </property>
              </widget>
             </item>
@@ -266,13 +273,13 @@
                </size>
               </property>
               <property name="minimum">
-               <double>-100.000000000000000</double>
+               <double>-10.000000000000000</double>
               </property>
               <property name="maximum">
-               <double>100.000000000000000</double>
+               <double>10.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>10.000000000000000</double>
+               <double>0.100000000000000</double>
               </property>
              </widget>
             </item>
@@ -283,7 +290,6 @@
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -307,13 +313,13 @@
              </size>
             </property>
             <property name="minimum">
-             <number>10</number>
+             <number>1</number>
             </property>
             <property name="maximum">
-             <number>200</number>
+             <number>300</number>
             </property>
             <property name="singleStep">
-             <number>10</number>
+             <number>1</number>
             </property>
             <property name="value">
              <number>100</number>
@@ -331,7 +337,6 @@
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -344,7 +349,7 @@
            <widget class="QComboBox" name="projection_type_combobox">
             <property name="minimumSize">
              <size>
-              <width>108</width>
+              <width>0</width>
               <height>30</height>
              </size>
             </property>
@@ -371,7 +376,6 @@
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -384,7 +388,7 @@
            <widget class="QComboBox" name="vertices_display_method_combobox">
             <property name="minimumSize">
              <size>
-              <width>108</width>
+              <width>0</width>
               <height>30</height>
              </size>
             </property>
@@ -394,11 +398,9 @@
               <height>25</height>
              </size>
             </property>
-            <item>
-             <property name="text">
-              <string>None</string>
-             </property>
-            </item>
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
             <item>
              <property name="text">
               <string>Square</string>
@@ -416,7 +418,6 @@
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -435,7 +436,7 @@
              </widget>
             </item>
             <item alignment="Qt::AlignRight">
-             <widget class="QSlider" name="certices_size_slider">
+             <widget class="QSlider" name="vertices_size_slider">
               <property name="minimumSize">
                <size>
                 <width>150</width>
@@ -448,11 +449,17 @@
                 <height>25</height>
                </size>
               </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
               <property name="maximum">
                <number>100</number>
               </property>
+              <property name="singleStep">
+               <number>1</number>
+              </property>
               <property name="value">
-               <number>50</number>
+               <number>1</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -485,7 +492,6 @@
             <property name="font">
              <font>
               <family>Monospace</family>
-              <pointsize>-1</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -507,7 +513,7 @@
              <widget class="QComboBox" name="edges_type_combobox">
               <property name="minimumSize">
                <size>
-                <width>108</width>
+                <width>0</width>
                 <height>0</height>
                </size>
               </property>
@@ -697,7 +703,6 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -764,7 +769,7 @@
            </widget>
           </item>
           <item alignment="Qt::AlignLeft">
-           <widget class="QLabel" name="label_114">
+           <widget class="QLabel" name="edges_count_label">
             <property name="maximumSize">
              <size>
               <width>100</width>
@@ -800,7 +805,7 @@
            </widget>
           </item>
           <item alignment="Qt::AlignLeft">
-           <widget class="QLabel" name="label_116">
+           <widget class="QLabel" name="vertices_count_label">
             <property name="maximumSize">
              <size>
               <width>100</width>
@@ -819,15 +824,12 @@
      </layout>
     </item>
     <item>
-     <widget class="QOpenGLWidget" name="openGLWidget">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <widget class="GLWidget" name="widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>0</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -839,7 +841,7 @@
      <x>0</x>
      <y>0</y>
      <width>1687</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -869,6 +871,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GLWidget</class>
+   <extends>QWidget</extends>
+   <header>glwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
