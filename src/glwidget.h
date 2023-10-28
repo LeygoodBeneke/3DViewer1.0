@@ -55,12 +55,9 @@ private:
   void drawStripes();
   QColor background;
   void drawAxis();
+  void rotate_around_axis(double *first_coord, double *second_coord, const double angle);
 
   GLfloat vertices_size = 5.0;
-  double prev_angle_x = 0;
-  double prev_angle_y = 0;
-  double prev_angle_z = 0;
-
 
   double current_angle_x = 0.0;
   double current_angle_y = 0.0;
