@@ -44,19 +44,13 @@ void GLWidget::paintGL()
       glDisable(GL_POINT_SMOOTH);
     }
 
-    //------------------------
     point *current_point_array = (point *)malloc(point_array_len * sizeof(point));
     for (int i = 0; i < point_array_len; i++) {
       current_point_array[i] = point_array[i];
-    }
-
-    for (int i = 0; i < point_array_len; i++) {
       rotate_around_axis(&current_point_array[i].x, &current_point_array[i].y, current_angle_x);
       rotate_around_axis(&current_point_array[i].y, &current_point_array[i].z, current_angle_y);
       rotate_around_axis(&current_point_array[i].x, &current_point_array[i].z, current_angle_z);
     }
-
-    //------------------------
 
     glBegin(GL_POINTS);
     for (int i = 0; i < point_array_len; i++) {
