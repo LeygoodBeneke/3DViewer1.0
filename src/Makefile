@@ -28,18 +28,21 @@ uninstall:
 	rm -rf build
 
 test:
+	cd parser; make test
 
 add_coverage:
 	$(eval CFLAGS += --coverage)
 
 gcov_report: add_coverage test
-	gcov -b -l -p -c s21_*.gcno
-	gcovr -o gcov_report.html --html --html-details -g -k -r . --html --html-details
-	$(OPEN_CM) gcov_report.html
+#	gcov -b -l -p -c s21_*.gcno
+#	gcovr -o gcov_report.html --html --html-details -g -k -r . --html --html-details
+#	$(OPEN_CM) gcov_report.html
+	cd parser; make gcov_report
 
 clean:
 	rm -rf build
 	rm -rf *.a *.o *.out *.info *.html *.gcno *.gcov *.gcda *.gch *.tgz *.css .clang_format
+	cd parser; make clean
 
 dvi: 
 	$(OPEN_CM) dvi/dvi.html
@@ -57,8 +60,10 @@ style:
 	cp ../materials/linters/.clang-format .
 	clang-format -n *.c *.h
 	rm -rf .clang-format
+	cd parser; make style
 
 edit_style:
 	cp ../materials/linters/.clang-format .
 	clang-format -i *.c *.h
 	rm -rf .clang-format
+	cd parser; make reformat_code
