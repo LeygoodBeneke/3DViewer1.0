@@ -52,7 +52,6 @@ int main(void) {
 
   tcase_add_test(tc, cube_equals);
 
-  //  srunner_run_all(sr, CK_NORMAL);
   srunner_run(sr, "parser", "parser", CK_NORMAL);
 
   free(sr);
