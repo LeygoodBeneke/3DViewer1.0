@@ -1,17 +1,18 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 
-#include <QOpenGLWidget>
-#include <QOpenGLFunctions>
 #include <GL/glu.h>
+
+#include <QOpenGLFunctions>
+#include <QOpenGLWidget>
 extern "C" {
 #include "parser/parser.h"
 };
 
-class GLWidget: public QOpenGLWidget {
+class GLWidget : public QOpenGLWidget {
   Q_OBJECT
 
-public:
+ public:
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
 
@@ -24,32 +25,23 @@ public:
   void paintGL() override;
   void resizeGL(int w, int h) override;
 
-  void rotation(double angle, double*, double*);
+  void rotation(double angle, double *, double *);
 
   void set_vertices_color(QColor new_color);
   void set_edges_color(QColor new_color);
 
   void initialize_model();
 
-  enum VerticesDisplayMethod {
-    SQUARE,
-    CIRCLE
-  };
+  enum VerticesDisplayMethod { SQUARE, CIRCLE };
 
-  enum EdgesType {
-    SOLID,
-    DASHED
-  };
+  enum EdgesType { SOLID, DASHED };
 
-  enum ProjectionType {
-    PARALLEL,
-    CENTRAL
-  };
+  enum ProjectionType { PARALLEL, CENTRAL };
 
   int get_edges_count() { return line_array_len; }
   int get_points_count() { return point_array_len; }
 
-private:
+ private:
   void drawStar(float fX, float fY);
   void drawStars();
   void drawStripes();
@@ -61,13 +53,11 @@ private:
   double prev_angle_y = 0;
   double prev_angle_z = 0;
 
-
   double current_angle_x = 0.0;
   double current_angle_y = 0.0;
   double current_angle_z = 0.0;
 
   double scale = 1.0;
-
 
   double position_x = 0;
   double position_y = 0;
@@ -84,7 +74,7 @@ private:
   EdgesType edges_type = EdgesType::SOLID;
   ProjectionType projection_type = ProjectionType::PARALLEL;
 
-public slots:
+ public slots:
   void set_position_x(double);
   void set_position_y(double);
   void set_position_z(double);
@@ -97,4 +87,4 @@ public slots:
   void set_scale(int size);
   void set_projection_type(int);
 };
-#endif // GLWIDGET_H
+#endif  // GLWIDGET_H

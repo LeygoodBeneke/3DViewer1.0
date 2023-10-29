@@ -44,7 +44,6 @@ START_TEST(cube_equals) {
 }
 
 int main(void) {
-
   Suite *parser_test = suite_create("parser");
   TCase *tc = tcase_create("parser");
   SRunner *sr = srunner_create(parser_test);
@@ -53,7 +52,7 @@ int main(void) {
 
   tcase_add_test(tc, cube_equals);
 
-//  srunner_run_all(sr, CK_NORMAL);
+  //  srunner_run_all(sr, CK_NORMAL);
   srunner_run(sr, "parser", "parser", CK_NORMAL);
 
   free(sr);
