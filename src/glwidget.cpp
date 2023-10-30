@@ -1,4 +1,5 @@
 #include "glwidget.h"
+
 #include <iostream>
 
 GLWidget::GLWidget(QWidget* parent)
@@ -6,33 +7,30 @@ GLWidget::GLWidget(QWidget* parent)
       background(QColor(Qt::black)),
       vertices_color(QColor(Qt::white)) {}
 
-GLWidget::~GLWidget()
-{
+GLWidget::~GLWidget() {
   free(point_array);
   free(line_array);
 }
 
-void GLWidget::initializeGL()
-{
-    glMatrixMode(GL_PROJECTION);
-    glMatrixMode(GL_MODELVIEW);
+void GLWidget::initializeGL() {
+  glMatrixMode(GL_PROJECTION);
+  glMatrixMode(GL_MODELVIEW);
 }
 
 void GLWidget::resizeGL(int width, int height) {
-    glViewport(0, 0, height, width);
+  glViewport(0, 0, height, width);
 }
 
-void GLWidget::paintGL()
-{
-    glClearColor(background.redF(), background.greenF(), background.blueF(), 1.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void GLWidget::paintGL() {
+  glClearColor(background.redF(), background.greenF(), background.blueF(), 1.0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glLoadIdentity();
-    if (projection_type == ProjectionType::CENTRAL) {
-      gluPerspective(70.0, 1.5, 0.1, 50);
-    } else
-      glOrtho(-5, 5, -5, 5, -100, 100);
-    gluLookAt(2, 2, 4, 0, 0, 0, 0, 1, 0);
+  glLoadIdentity();
+  if (projection_type == ProjectionType::CENTRAL) {
+    gluPerspective(70.0, 1.5, 0.1, 50);
+  } else
+    glOrtho(-5, 5, -5, 5, -100, 100);
+  gluLookAt(2, 2, 4, 0, 0, 0, 0, 1, 0);
 
     glEnable( GL_PROGRAM_POINT_SIZE );
 
@@ -103,25 +101,24 @@ void GLWidget::rotate_around_axis(double *first_coord, double *second_coord, con
     *second_coord = x * sin(angle) + y * cos(angle);
 }
 
-void GLWidget::drawAxis()
-{
-    glBegin(GL_LINES);
-    glColor3f(0.0, 0.0, 1.0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(.5, 0, 0);
-    glEnd();
+void GLWidget::drawAxis() {
+  glBegin(GL_LINES);
+  glColor3f(0.0, 0.0, 1.0);
+  glVertex3f(0, 0, 0);
+  glVertex3f(.5, 0, 0);
+  glEnd();
 
-    glBegin(GL_LINES);
-    glColor3f(0.0, 1.0, 0.0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0, .5, 0);
-    glEnd();
+  glBegin(GL_LINES);
+  glColor3f(0.0, 1.0, 0.0);
+  glVertex3f(0, 0, 0);
+  glVertex3f(0, .5, 0);
+  glEnd();
 
-    glBegin(GL_LINES);
-    glColor3f(1.0, 0.0, 0.0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(0, 0, .5);
-    glEnd();
+  glBegin(GL_LINES);
+  glColor3f(1.0, 0.0, 0.0);
+  glVertex3f(0, 0, 0);
+  glVertex3f(0, 0, .5);
+  glEnd();
 }
 
 void GLWidget::rotation_x(double angle) {
@@ -138,28 +135,28 @@ void GLWidget::rotation_z(double angle) {
 }
 
 void GLWidget::set_vertices_size(int value) {
-    vertices_size = value;
-    update();
+  vertices_size = value;
+  update();
 }
 
 void GLWidget::set_vertices_color(QColor new_color) {
-    vertices_color = new_color;
-    update();
+  vertices_color = new_color;
+  update();
 }
 
 void GLWidget::set_edges_color(QColor new_color) {
-    edges_color = new_color;
-    update();
+  edges_color = new_color;
+  update();
 }
 
 void GLWidget::set_vertices_method(int value) {
-    vetr_method = VerticesDisplayMethod(value);
-    update();
+  vetr_method = VerticesDisplayMethod(value);
+  update();
 }
 
 void GLWidget::set_edges_type(int value) {
-    edges_type = EdgesType(value);
-    update();
+  edges_type = EdgesType(value);
+  update();
 }
 
 void GLWidget::set_line_width(int value)
@@ -169,48 +166,48 @@ void GLWidget::set_line_width(int value)
 }
 
 void GLWidget::set_position_x(double x) {
-    position_x = x;
-    update();
+  position_x = x;
+  update();
 }
 
 void GLWidget::set_position_y(double y) {
-    position_y = y;
-    update();
+  position_y = y;
+  update();
 }
 
 void GLWidget::set_position_z(double z) {
-    position_z = z;
-    update();
+  position_z = z;
+  update();
 }
 void GLWidget::set_scale(int size) {
-    scale = size / 100.0;
-    update();
+  scale = size / 100.0;
+  update();
 }
 
 void GLWidget::set_projection_type(int type) {
-    projection_type = ProjectionType(type);
-    update();
+  projection_type = ProjectionType(type);
+  update();
 }
 
 void GLWidget::initialize_model() {
-    parser((char *)modelPath.toStdString().c_str(), &point_array, &point_array_len, &line_array, &line_array_len);
+  parser((char*)modelPath.toStdString().c_str(), &point_array, &point_array_len,
+         &line_array, &line_array_len);
 
-    point gravity_center = {.x = 0, .y = 0, .z = 0};
+  point gravity_center = {.x = 0, .y = 0, .z = 0};
 
-    for (int i =0; i < point_array_len; i++) {
-        gravity_center.x += point_array[i].x;
-        gravity_center.y += point_array[i].y;
-        gravity_center.z += point_array[i].z;
-    }
-    gravity_center.x /= point_array_len;
-    gravity_center.y /= point_array_len;
-    gravity_center.z /= point_array_len;
+  for (int i = 0; i < point_array_len; i++) {
+    gravity_center.x += point_array[i].x;
+    gravity_center.y += point_array[i].y;
+    gravity_center.z += point_array[i].z;
+  }
+  gravity_center.x /= point_array_len;
+  gravity_center.y /= point_array_len;
+  gravity_center.z /= point_array_len;
 
-    for (int i =0; i < point_array_len; i++) {
-        point_array[i].x -= gravity_center.x;
-        point_array[i].y -= gravity_center.y;
-        point_array[i].z -= gravity_center.z;
-    }
-    update();
+  for (int i = 0; i < point_array_len; i++) {
+    point_array[i].x -= gravity_center.x;
+    point_array[i].y -= gravity_center.y;
+    point_array[i].z -= gravity_center.z;
+  }
+  update();
 }
-

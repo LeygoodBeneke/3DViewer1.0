@@ -1,28 +1,28 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QVector>
-#include <QFileDialog>
 #include <QColorDialog>
-#include <QMessageBox>
-#include <QDir>
-#include <QFileInfo>
 #include <QDateTime>
+#include <QDir>
+#include <QFileDialog>
+#include <QFileInfo>
 #include <QImage>
-#include <QTimer>
+#include <QMainWindow>
+#include <QMessageBox>
 #include <QSettings>
 #include <QDebug>
+#include <QTimer>
+#include <QVector>
 #include "QtGifImage/src/gifimage/qgifimage.h"
-
 #include "glwidget.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
@@ -37,7 +37,6 @@ class MainWindow : public QMainWindow
   int counter;
   QSettings *settings;
 
-
  private slots:
   void change_vertices_color();
   void change_edges_color();
@@ -50,5 +49,4 @@ class MainWindow : public QMainWindow
   void save_settings();
   void reset_settings();
 };
-#endif // MAINWINDOW_H
-
+#endif  // MAINWINDOW_H
