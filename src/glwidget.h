@@ -16,16 +16,9 @@ class GLWidget : public QOpenGLWidget {
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
 
-  enum VerticesDisplayMethod {
-      SQUARE,
-      CIRCLE,
-      BLANK
-  };
+  enum VerticesDisplayMethod { SQUARE, CIRCLE, BLANK };
 
-  enum EdgesType {
-      SOLID,
-      DASHED
-  };
+  enum EdgesType { SOLID, DASHED };
 
   QString modelPath;
 
@@ -36,7 +29,7 @@ class GLWidget : public QOpenGLWidget {
   VerticesDisplayMethod get_vetr_method() { return vetr_method; }
   GLfloat get_vertices_size() { return vertices_size; }
   QColor get_vertices_color() { return vertices_color; }
-  //get_projection_type
+  // get_projection_type
 
   void set_background(QColor color) { background = color; }
 
@@ -58,7 +51,8 @@ class GLWidget : public QOpenGLWidget {
   void drawStars();
   void drawStripes();
   void drawAxis();
-  void rotate_around_axis(double *first_coord, double *second_coord, const double angle);
+  void rotate_around_axis(double *first_coord, double *second_coord,
+                          const double angle);
 
   QColor background;
   GLfloat line_width = 1.0;
@@ -79,8 +73,6 @@ class GLWidget : public QOpenGLWidget {
   double current_angle_x = 0;
   double current_angle_y = 0;
   double current_angle_z = 0;
-
-
 
   point *point_array;
   int point_array_len = 0;

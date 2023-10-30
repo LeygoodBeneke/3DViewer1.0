@@ -3,6 +3,7 @@
 
 #include <QColorDialog>
 #include <QDateTime>
+#include <QDebug>
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -10,9 +11,9 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QSettings>
-#include <QDebug>
 #include <QTimer>
 #include <QVector>
+
 #include "QtGifImage/src/gifimage/qgifimage.h"
 #include "glwidget.h"
 
