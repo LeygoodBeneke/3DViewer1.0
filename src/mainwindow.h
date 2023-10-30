@@ -3,6 +3,7 @@
 
 #include <QColorDialog>
 #include <QDateTime>
+#include <QDebug>
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -47,5 +48,6 @@ class MainWindow : public QMainWindow {
   void create_gif();
   void load_settings();
   void save_settings();
+  void reset_settings();
 };
 #endif  // MAINWINDOW_H

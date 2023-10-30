@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-GLWidget::GLWidget(QWidget* parent)
+GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent),
-      // background(QColor(Qt::black)),
+      background(QColor(Qt::black)),
       vertices_color(QColor(Qt::white)) {}
 
 GLWidget::~GLWidget() {
@@ -33,12 +33,27 @@ void GLWidget::paintGL() {
   gluLookAt(2, 2, 4, 0, 0, 0, 0, 1, 0);
 
   glEnable(GL_PROGRAM_POINT_SIZE);
-  glPointSize(vertices_size);
 
-  if (vetr_method == VerticesDisplayMethod::CIRCLE)
+  if (vetr_method == VerticesDisplayMethod::CIRCLE) {
     glEnable(GL_POINT_SMOOTH);
-  else {
+    glPointSize(vertices_size);
+  } else if (vetr_method == VerticesDisplayMethod::BLANK) {
+    glPointSize(1);
     glDisable(GL_POINT_SMOOTH);
+  } else {
+    glPointSize(vertices_size);
+    glDisable(GL_POINT_SMOOTH);
+  }
+
+  point *current_point_array = (point *)malloc(point_array_len * sizeof(point));
+  for (int i = 0; i < point_array_len; i++) {
+    current_point_array[i] = point_array[i];
+    rotate_around_axis(&current_point_array[i].x, &current_point_array[i].y,
+                       current_angle_x);
+    rotate_around_axis(&current_point_array[i].y, &current_point_array[i].z,
+                       current_angle_y);
+    rotate_around_axis(&current_point_array[i].x, &current_point_array[i].z,
+                       current_angle_z);
   }
 
   glBegin(GL_POINTS);
@@ -47,9 +62,9 @@ void GLWidget::paintGL() {
               vertices_color.blueF());
     glVertex3f(
 
-        point_array[i].x * scale + position_x,
-        point_array[i].y * scale + position_y,
-        point_array[i].z * scale + position_z);
+        current_point_array[i].x * scale + position_x,
+        current_point_array[i].y * scale + position_y,
+        current_point_array[i].z * scale + position_z);
   }
   glEnd();
 
@@ -58,20 +73,30 @@ void GLWidget::paintGL() {
   } else {
     glDisable(GL_LINE_STIPPLE);
   }
-
   glLineStipple(3, 0xDDDD);
+
+  glLineWidth(line_width);
   glBegin(GL_LINES);
+
   glColor3f(edges_color.redF(), edges_color.greenF(), edges_color.blueF());
   for (int i = 0; i < line_array_len; i++) {
-    glVertex3f(point_array[line_array[i].a - 1].x * scale + position_x,
-               point_array[line_array[i].a - 1].y * scale + position_y,
-               point_array[line_array[i].a - 1].z * scale + position_z);
-    glVertex3f(point_array[line_array[i].b - 1].x * scale + position_x,
-               point_array[line_array[i].b - 1].y * scale + position_y,
-               point_array[line_array[i].b - 1].z * scale + position_z);
+    glVertex3f(current_point_array[line_array[i].a - 1].x * scale + position_x,
+               current_point_array[line_array[i].a - 1].y * scale + position_y,
+               current_point_array[line_array[i].a - 1].z * scale + position_z);
+    glVertex3f(current_point_array[line_array[i].b - 1].x * scale + position_x,
+               current_point_array[line_array[i].b - 1].y * scale + position_y,
+               current_point_array[line_array[i].b - 1].z * scale + position_z);
   }
   glEnd();
   drawAxis();
+  free(current_point_array);
+}
+
+void GLWidget::rotate_around_axis(double *first_coord, double *second_coord,
+                                  const double angle) {
+  GLfloat x = *first_coord, y = *second_coord;
+  *first_coord = x * cos(angle) - y * sin(angle);
+  *second_coord = x * sin(angle) + y * cos(angle);
 }
 
 void GLWidget::drawAxis() {
@@ -96,47 +121,14 @@ void GLWidget::drawAxis() {
 
 void GLWidget::rotation_x(double angle) {
   current_angle_x = angle * M_PI / 180.0;
-  for (int i = 0; i < point_array_len; i++) {
-    GLfloat x = point_array[i].x, y = point_array[i].y;
-    point_array[i].x = x * cos(-prev_angle_x) - y * sin(-prev_angle_x);
-    point_array[i].y = x * sin(-prev_angle_x) + y * cos(-prev_angle_x);
-  }
-  for (int i = 0; i < point_array_len; i++) {
-    GLfloat x = point_array[i].x, y = point_array[i].y;
-    point_array[i].x = x * cos(current_angle_x) - y * sin(current_angle_x);
-    point_array[i].y = x * sin(current_angle_x) + y * cos(current_angle_x);
-  }
-  prev_angle_x = current_angle_x;
   update();
 }
 void GLWidget::rotation_y(double angle) {
   current_angle_y = angle * M_PI / 180.0;
-  for (int i = 0; i < point_array_len; i++) {
-    GLfloat x = point_array[i].y, y = point_array[i].z;
-    point_array[i].y = x * cos(-prev_angle_y) - y * sin(-prev_angle_y);
-    point_array[i].z = x * sin(-prev_angle_y) + y * cos(-prev_angle_y);
-  }
-  for (int i = 0; i < point_array_len; i++) {
-    GLfloat x = point_array[i].y, y = point_array[i].z;
-    point_array[i].y = x * cos(current_angle_y) - y * sin(current_angle_y);
-    point_array[i].z = x * sin(current_angle_y) + y * cos(current_angle_y);
-  }
-  prev_angle_y = current_angle_y;
   update();
 }
 void GLWidget::rotation_z(double angle) {
   current_angle_z = angle * M_PI / 180.0;
-  for (int i = 0; i < point_array_len; i++) {
-    GLfloat x = point_array[i].x, y = point_array[i].z;
-    point_array[i].x = x * cos(-prev_angle_z) - y * sin(-prev_angle_z);
-    point_array[i].z = x * sin(-prev_angle_z) + y * cos(-prev_angle_z);
-  }
-  for (int i = 0; i < point_array_len; i++) {
-    GLfloat x = point_array[i].x, y = point_array[i].z;
-    point_array[i].x = x * cos(current_angle_z) - y * sin(current_angle_z);
-    point_array[i].z = x * sin(current_angle_z) + y * cos(current_angle_z);
-  }
-  prev_angle_z = current_angle_z;
   update();
 }
 
@@ -165,6 +157,11 @@ void GLWidget::set_edges_type(int value) {
   update();
 }
 
+void GLWidget::set_line_width(int value) {
+  line_width = value;
+  update();
+}
+
 void GLWidget::set_position_x(double x) {
   position_x = x;
   update();
@@ -190,8 +187,8 @@ void GLWidget::set_projection_type(int type) {
 }
 
 void GLWidget::initialize_model() {
-  parser((char*)modelPath.toStdString().c_str(), &point_array, &point_array_len,
-         &line_array, &line_array_len);
+  parser((char *)modelPath.toStdString().c_str(), &point_array,
+         &point_array_len, &line_array, &line_array_len);
 
   point gravity_center = {.x = 0, .y = 0, .z = 0};
 

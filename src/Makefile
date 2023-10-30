@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -std=c11 -pedantic
+CFLAGS = -Werror -Wextra -Wall -std=c11
 SOURCES =
 LIBRARY =
 OBJ_PROJECT =
@@ -59,9 +59,9 @@ valgrind: test
 	#valgrind --tool=memcheck --leak-check=yes --leak-check=full -s ./s21_tests
 	cd parser; make leaks
 style:
-	clang-format -style=google -n $(SOURCES) $(HEADERS)
+	find . -name "*.cpp" -or -name "*.h" -or -name "*.c" | xargs clang-format -n
 	cd parser; make style
 
 edit_style:
-	clang-format -style=google -i $(SOURCES) $(HEADERS)
+	find . -name "*.cpp" -or -name "*.h" -or -name "*.c" | xargs clang-format -i
 	cd parser; make reformat_code
