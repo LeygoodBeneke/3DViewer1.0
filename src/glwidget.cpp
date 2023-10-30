@@ -8,8 +8,8 @@ GLWidget::GLWidget(QWidget *parent)
       vertices_color(QColor(Qt::white)) {}
 
 GLWidget::~GLWidget() {
-  free(point_array);
-  free(line_array);
+  if (point_array) free(point_array);
+  if (line_array) free(line_array);
 }
 
 void GLWidget::initializeGL() {
