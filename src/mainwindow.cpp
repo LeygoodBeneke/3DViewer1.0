@@ -11,13 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
   settings = new QSettings(this);
   load_settings();
 
-  connect(ui->background_color_btn, SIGNAL(clicked()), this,
-          SLOT(on_background_color_btn_clicked()));
-  connect(ui->load_from_file_btn, SIGNAL(clicked()), this,
-          SLOT(on_load_from_file_btn_clicked()));
-  connect(ui->screenshot_btn, SIGNAL(clicked()), this,
-          SLOT(on_screenshot_btn_clicked()));
-  connect(ui->record_btn, SIGNAL(clicked()), this, SLOT(on_record_btn_clicked()));
   connect(ui->vertices_color_btn, SIGNAL(clicked()), this,
           SLOT(change_vertices_color()));
   connect(ui->edges_color_btn, SIGNAL(clicked()), this,
