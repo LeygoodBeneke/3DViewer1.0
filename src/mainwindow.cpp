@@ -62,8 +62,8 @@ MainWindow::~MainWindow() {
 void MainWindow::on_load_from_file_btn_clicked() {
   QString path =
       QFileDialog::getOpenFileName(this, "Load a file", QDir::currentPath());
-  QFileInfo fileInfo(path);
   if (!path.isEmpty()) {
+    QFileInfo fileInfo(path);
     if (fileInfo.suffix() != "obj") {
       QMessageBox::warning(this, "Warning!",
                            "Invalid file extension. Expected '.obj'");
