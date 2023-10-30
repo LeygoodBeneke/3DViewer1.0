@@ -41,10 +41,10 @@ class MainWindow : public QMainWindow {
  private slots:
   void change_vertices_color();
   void change_edges_color();
-  void on_bg_btn_clicked();
-  void on_load_file_btn_clicked();
-  void on_snap_btn_clicked();
-  void on_gif_btn_clicked();
+  void on_background_color_btn_clicked();
+  void on_load_from_file_btn_clicked();
+  void on_screenshot_btn_clicked();
+  void on_record_btn_clicked();
   void create_gif();
   void load_settings();
   void save_settings();

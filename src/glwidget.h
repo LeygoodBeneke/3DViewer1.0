@@ -20,6 +20,8 @@ class GLWidget : public QOpenGLWidget {
 
   enum EdgesType { SOLID, DASHED };
 
+  enum ProjectionType { PARALLEL, CENTRAL };
+
   QString modelPath;
 
   QColor get_background() { return background; }
@@ -29,7 +31,7 @@ class GLWidget : public QOpenGLWidget {
   VerticesDisplayMethod get_vetr_method() { return vetr_method; }
   GLfloat get_vertices_size() { return vertices_size; }
   QColor get_vertices_color() { return vertices_color; }
-  // get_projection_type
+  ProjectionType get_projection_type() { return projection_type; }
 
   void set_background(QColor color) { background = color; }
 
@@ -40,8 +42,6 @@ class GLWidget : public QOpenGLWidget {
   void set_vertices_color(QColor new_color);
   void set_edges_color(QColor new_color);
   void initialize_model();
-
-  enum ProjectionType { PARALLEL, CENTRAL };
 
   int get_edges_count() { return line_array_len; }
   int get_points_count() { return point_array_len; }

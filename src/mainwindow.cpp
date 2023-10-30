@@ -12,12 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
   load_settings();
 
   connect(ui->background_color_btn, SIGNAL(clicked()), this,
-          SLOT(on_bg_btn_clicked()));
+          SLOT(on_background_color_btn_clicked()));
   connect(ui->load_from_file_btn, SIGNAL(clicked()), this,
-          SLOT(on_load_file_btn_clicked()));
+          SLOT(on_load_from_file_btn_clicked()));
   connect(ui->screenshot_btn, SIGNAL(clicked()), this,
-          SLOT(on_snap_btn_clicked()));
-  connect(ui->record_btn, SIGNAL(clicked()), this, SLOT(on_gif_btn_clicked()));
+          SLOT(on_screenshot_btn_clicked()));
+  connect(ui->record_btn, SIGNAL(clicked()), this, SLOT(on_record_btn_clicked()));
   connect(ui->vertices_color_btn, SIGNAL(clicked()), this,
           SLOT(change_vertices_color()));
   connect(ui->edges_color_btn, SIGNAL(clicked()), this,
@@ -59,7 +59,7 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
-void MainWindow::on_load_file_btn_clicked() {
+void MainWindow::on_load_from_file_btn_clicked() {
   QString path =
       QFileDialog::getOpenFileName(this, "Load a file", QDir::currentPath());
   QFileInfo fileInfo(path);
@@ -81,7 +81,7 @@ void MainWindow::on_load_file_btn_clicked() {
   }
 }
 
-void MainWindow::on_bg_btn_clicked() {
+void MainWindow::on_background_color_btn_clicked() {
   QColor bg = glWidget->get_background();
   QColor new_bg = QColorDialog::getColor(bg, this, tr("Background Color:"));
   if (new_bg.isValid()) {
@@ -102,7 +102,7 @@ void MainWindow::change_edges_color() {
   glWidget->set_edges_color(new_color);
 }
 
-void MainWindow::on_snap_btn_clicked() {
+void MainWindow::on_screenshot_btn_clicked() {
   QString filename =
       QDateTime::currentDateTime().toString("yyyy-MM-dd hh-mm-ss");
   QString filter = "JPEG Files (*.jpg);;BMP Files (*.bmp);;All Files (*)";
@@ -121,7 +121,7 @@ void MainWindow::on_snap_btn_clicked() {
   }
 }
 
-void MainWindow::on_gif_btn_clicked() {
+void MainWindow::on_record_btn_clicked() {
   if (!glWidget->modelPath.isEmpty()) {
     timer = new QTimer(this);
     gif = new QGifImage();
@@ -160,7 +160,7 @@ void MainWindow::save_settings() {
   settings->setValue("vetr_method", glWidget->get_vetr_method());
   settings->setValue("vertices_size", glWidget->get_vertices_size());
   settings->setValue("vertices_color", glWidget->get_vertices_color());
-  // settings->setValue("projection_type", glWidget->get_projection_type());
+  settings->setValue("projection_type", glWidget->get_projection_type());
 }
 
 void MainWindow::load_settings() {
@@ -171,7 +171,7 @@ void MainWindow::load_settings() {
   QVariant vetr_method = settings->value("vetr_method");
   QVariant vertices_size = settings->value("vertices_size");
   QVariant vertices_color = settings->value("vertices_color");
-  // QVariant vertices_color = settings->value("vertices_color");
+  QVariant projection_type = settings->value("projection_type");
 
   if (bg.isValid()) {
     glWidget->set_background(bg.value<QColor>());
@@ -199,9 +199,11 @@ void MainWindow::load_settings() {
   if (vertices_color.isValid()) {
     glWidget->set_vertices_color(vertices_color.value<QColor>());
   }
-  //    if (vertices_color.isValid()) {
-  //        glWidget->glWidget->set_projection_type("vertices_color".value<int>());
-  //    }
+  if (projection_type.isValid()) {
+    glWidget->set_projection_type(projection_type.value<int>());
+    ui->projection_type_combobox->setCurrentIndex(
+        projection_type.value<int>());
+  }
 }
 
 void MainWindow::reset_settings() {
@@ -216,6 +218,6 @@ void MainWindow::reset_settings() {
   glWidget->set_vertices_size(5.0);
   ui->vertices_size_slider->setValue(0);
   glWidget->set_vertices_color(QColor(Qt::white));
-  // glWidget->set_projection_type(1);
+  glWidget->set_projection_type(1);
   glWidget->update();
 }
