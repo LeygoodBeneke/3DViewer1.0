@@ -36,7 +36,7 @@ add_coverage:
 	$(eval CFLAGS += --coverage)
 
 gcov_report: add_coverage test
-#	gcov -b -l -p -c s21_*.gcno
+#	gcov -b -l -p -c proj_*.gcno
 #	gcovr -o gcov_report.html --html --html-details -g -k -r . --html --html-details
 #	$(OPEN_CM) gcov_report.html
 	cd parser; make gcov_report
@@ -52,11 +52,11 @@ dvi:
 dist: clean
 	mkdir dist_3d_viewer/
 	cp Makefile $(SOURCES) $(HEADERS) -r parser/ QtGifImage/ dist_3d_viewer/
-	tar -czvf s21_smartcalc.tgz ../src
+	tar -czvf proj_smartcalc.tgz ../src
 	rm -rf dist_3d_viewer/
 
 valgrind: test
-	#valgrind --tool=memcheck --leak-check=yes --leak-check=full -s ./s21_tests
+	#valgrind --tool=memcheck --leak-check=yes --leak-check=full -s ./proj_tests
 	cd parser; make leaks
 style:
 	find . -name "*.cpp" -or -name "*.h" -or -name "*.c" | xargs clang-format -n
